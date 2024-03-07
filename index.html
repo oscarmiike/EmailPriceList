@@ -15,20 +15,30 @@
 
 <body>
 
-
     <div class="titleContainer">
-        <span class="title">Asset Price List</span>
+        <span class="title">
+            Asset Price List
+        </span>
         <div class="input-group">
             <input type="text" id="tokenInput" placeholder="Enter token here">
-            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i></button>
+            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i>
+            </button>
         </div>
-        <div class="success-message" id="successMessage" style="display: none; opacity: 0;">Token added successfully
+        <div class="success-message" id="successMessage">
+            Token added successfully
+        </div>
+        <div class="copied-message" id="copyMessage">
+            Content copied to clipboard.
         </div>
         <div class="fetch-container">
-            <button class="get-btn" onclick="fetchPriceList()">Fetch Prices</button>
+            <button class="get-btn" onclick="fetchPriceList()">
+                Fetch Prices
+            </button>
         </div>
         <div class="copy-container">
-            <button class="get-btn" onclick="fetchPriceList()">Copy to clipboard</button>
+            <button id="copyBtn" class="get-btn">
+                Copy to clipboard
+            </button>
         </div>
     </div>
 
@@ -65,8 +75,7 @@
         </div>
         <div id="digital" class="asset-box">
             <div id="digitalCopy">
-                <table style="border:none; width:100%; border-spacing: 0px !important;" cellspacing="0"
-                    cellpadding="0">
+                <table style="border:none; width:100%; border-spacing: 0px !important;" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
                             <td style="padding-bottom: 10px; ">
@@ -295,6 +304,43 @@
             }
             return null;
         }
+
+        document.getElementById('copyBtn').addEventListener('click', function () {
+
+            const contentToCopy = document.getElementById('bullionCopy');
+            const successMessage = document.getElementById('successMessage');
+
+            console.log("contentToCopy: ", contentToCopy)
+
+            if (window.getSelection && document.createRange) {
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+
+                const range = document.createRange();
+                console.log("range: ", range)
+
+                range.selectNodeContents(contentToCopy);
+                selection.addRange(range);
+
+                console.log("range.selectNodeContents(contentToCopy) ", range.selectNodeContents(contentToCopy))
+
+                try {
+                    document.execCommand('copy');
+                    fadeIn(copyMessage, () => {
+                        setTimeout(() => {
+                            fadeOut(copyMessage);
+                        }, 2000);
+                    });
+                } catch (err) {
+                    console.error('Failed to copy content: ', err);
+                }
+
+                selection.removeAllRanges();
+            } else {
+                console.error('Your browser does not support this copy method.');
+            }
+        });
+
     </script>
 
 </body>

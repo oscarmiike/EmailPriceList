@@ -88,6 +88,14 @@ body {
     font-size: 14px;
 }
 
+.copied-message {
+    display: none;
+    color: #cccccc;
+    margin-right: 20px;
+    opacity: 0;
+    font-size: 14px;
+}
+
 
 input[type="text"] {
     flex-grow: 1;
