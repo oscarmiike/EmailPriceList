@@ -8,7 +8,6 @@
 
 <h2>Asset Price List</h2>
 
-<!-- Placeholder for the API response -->
 <div id="price-list">
     Loading price list...
 </div>
@@ -24,7 +23,6 @@ function fetchPriceList() {
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            // Any other headers go here; if you have a token, it should be included here
         },
     })
     .then(response => {
@@ -37,7 +35,7 @@ function fetchPriceList() {
         displayPriceList(data);
     })
     .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
+        console.error('Error:', error);
         document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
     });
 }
