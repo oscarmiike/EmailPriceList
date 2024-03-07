@@ -40,9 +40,9 @@
             const token = getCookie('apiToken');
             const inputGroup = document.querySelector('.input-group');
             if (!token) {
-                inputGroup.style.display = 'none';
+                inputGroup.style.display = 'flex';
             } else {
-                inputGroup.style.display = 'flex'; 
+                inputGroup.style.display = 'none'; 
             }
         });
 
