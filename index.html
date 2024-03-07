@@ -49,7 +49,8 @@
         function saveToken() {
             const token = document.getElementById('tokenInput').value;
             document.cookie = `apiToken=${token};path=/`;
-            document.querySelector('.input-group').style.display = 'flex';
+            document.querySelector('.input-group').style.display = 'none';
+            document.querySelector('.input-group').value = '';
         }
 
         function fetchPriceList() {
