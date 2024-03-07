@@ -58,16 +58,22 @@ function fetchPriceList() {
 function displayPriceList(data) {
     const priceListDiv = document.getElementById('price-list');
     let html = '<ul>';
-    if (data && Array.isArray(data.data)) {
-        data.data.forEach(item => {
-            html += `<li>${item.asset}: $${item.price}</li>`;
+    
+    // Directly iterate over 'data' as it's already the array you want to process
+    if (data && Array.isArray(data)) {
+        data.forEach(item => {
+            // Update this line to display the information you're interested in
+            // For example, combining assetName and spot price:
+            html += `<li>${item.assetName}: $${item.spot}</li>`;
         });
     } else {
         html += '<li>No data found</li>';
     }
+    
     html += '</ul>';
     priceListDiv.innerHTML = html;
 }
+
 
 // Utility function to get a cookie by name
 function getCookie(name) {
