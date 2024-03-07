@@ -32,10 +32,71 @@
         </div>
     </div>
 
-    <div style="display:none;" class="emailContainer">
-        <div id="price-list" class="price-list">
+    <!-- Email template section -->
+    <div class="asset-container">
+        <div id="bullion" class="asset-box">
+            <div id="bullionCopy">
+                <table style="border:1px solid black; width:100%; border-spacing: 0px !important;" cellspacing="0"
+                    cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Gold:Siver Ratio - 88.87</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>AUD/USD - 0.6565</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Gold - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Silver - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="digital" class="asset-box">
+            <div id="digitalCopy">
+                <table style="border:1px solid black; width:100%; border-spacing: 0px !important;" cellspacing="0"
+                    cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Gold:Siver Ratio - 88.87</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>AUD/USD - 0.6565</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Gold - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                                <span>Silver - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    </div>
+
+
+
 
     <div class="helpContainer">
         <div id="help" class="tokenHelp">
@@ -52,7 +113,8 @@
                     Click on "Generate New Token", then click on "Copy"
                 </li>
                 <li>
-                    Paste the token at the top of this page where it says "Enter token here", and click the submission
+                    Paste the token at the top of this page where it says "Enter token here", and click the
+                    submission
                     arrow
                 </li>
                 <li>
@@ -82,59 +144,66 @@
             }
         });
 
+
+        function fadeIn(element, callback = () => { }) {
+            element.style.opacity = 0;
+            element.style.display = 'flex';
+            setTimeout(() => {
+                element.style.transition = 'opacity 1s';
+                element.style.opacity = 1;
+                setTimeout(callback, 1000);
+            }, 10);
+        }
+
+        function fadeOut(element, callback = () => { }) {
+            element.style.transition = 'opacity 1s';
+            element.style.opacity = 0;
+            setTimeout(() => {
+                element.style.display = 'none';
+                callback();
+            }, 1000);
+        }
+
         function saveToken() {
             const tokenInput = document.getElementById('tokenInput');
             const token = tokenInput.value;
             const fetchContainer = document.querySelector('.fetch-container');
             const copyContainer = document.querySelector('.copy-container');
-
-            if (!token) return;
-
-            document.cookie = `apiToken=${token};path=/`;
-
+            const helpContainer = document.querySelector('.helpContainer');
+            const emailContainer = document.querySelector('.emailContainer');
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
 
-            // Initially hide fetchContainer and copyContainer
+            if (!token) return;
+            if (token.length < 2) {
+                tokenInput.value = "";
+                tokenInput.placeholder = "Token too short, please enter a valid token";
+                return;
+            }
+
+            document.cookie = `apiToken=${token};path=/`;
+
+            fadeOut(inputGroup, () => {
+                tokenInput.value = '';
+                successMessage.style.display = 'block';
+                fadeIn(successMessage, () => {
+                    setTimeout(() => {
+                        fadeOut(successMessage, () => {
+                            fetchContainer.style.opacity = 0;
+                            copyContainer.style.opacity = 0;
+
+                            fadeIn(fetchContainer);
+                            fadeIn(copyContainer);
+                            fadeIn(emailContainer);
+                        });
+                        fadeOut(helpContainer);
+                    }, 2000);
+                });
+            });
+
             fetchContainer.style.display = 'none';
             copyContainer.style.display = 'none';
-
-            inputGroup.classList.add('fade-out');
-            setTimeout(() => {
-                inputGroup.style.display = 'none';
-                tokenInput.value = '';
-
-                successMessage.style.display = 'block';
-                successMessage.style.opacity = 1; // Start with full opacity for successMessage
-                successMessage.classList.add('fade-in');
-
-                setTimeout(() => {
-                    successMessage.classList.remove('fade-in');
-                    successMessage.classList.add('fade-out');
-
-                    // Wait for the success message fade-out to complete
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-
-                        // Now display fetchContainer and copyContainer and apply fade-in effect
-                        fetchContainer.style.display = 'flex';
-                        copyContainer.style.display = 'flex';
-                        fetchContainer.style.opacity = 0; // Start with 0 opacity for fade-in
-                        copyContainer.style.opacity = 0; // Start with 0 opacity for fade-in
-
-                        // Add fade-in class to start the fade-in animation
-                        fetchContainer.classList.add('fade-in');
-                        copyContainer.classList.add('fade-in');
-
-                    }, 1000); // This timeout matches the duration of the fade-out animation
-
-                }, 2000); // Adjust as needed for how long to display the success message before starting fade-out
-            }, 1000);
         }
-
-
-
-
 
 
         function fetchPriceList() {
