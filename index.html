@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMX Example</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+
+<h2>Asset Price List</h2>
+
+<!-- This div will be replaced by the content fetched from the API -->
+<div id="price-list" hx-get="https://dev-api.ainsliebullion.com.au/assets/pricelist"
+     hx-trigger="load"
+     hx-target="#price-list"
+     hx-swap="outerHTML">
+    Loading price list...
+</div>
+
+<script>
+// Since HTMX does not support adding headers directly in the HTML attributes,
+// you might need to use JavaScript to interact with APIs requiring authentication.
+// This script would ideally fetch the data using Fetch API, include the necessary
+// authentication headers, and then manipulate the DOM to display the data.
+// Example below is conceptual and focuses on HTMX for the display logic.
+
+document.addEventListener('htmx:configRequest', (event) => {
+    // Example of adding a header, but this won't work for CORS restricted APIs
+    // event.detail.headers['Authorization'] = 'Bearer YOUR_AUTH_TOKEN';
+});
+
+// Function to process and display JSON - you would replace this with real data handling
+function displayPriceList(data) {
+    const priceListDiv = document.getElementById('price-list');
+    priceListDiv.innerHTML = JSON.stringify(data, null, 2); // Simplistic way to display JSON
+}
+
+// Simulated fetch function - replace with real API call including authentication
+function fetchPriceList() {
+    const fakeApiResponse = {
+        data: [
+            {asset: 'Gold', price: '1800'},
+            {asset: 'Silver', price: '22'}
+        ]
+    };
+    displayPriceList(fakeApiResponse);
+}
+
+// You would call fetchPriceList() or similar in response to successful authentication
+// or directly if your page is already authenticated and authorized to make the request.
+</script>
+
+</body>
+</html>
