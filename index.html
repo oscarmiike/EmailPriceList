@@ -132,15 +132,18 @@
             const inputGroup = document.querySelector('.input-group');
             const fetchContainer = document.querySelector('.fetch-container');
             const copyContainer = document.querySelector('.copy-container');
+            const helpContainer = document.querySelector('.helpContainer');
 
             if (!token) {
                 inputGroup.style.display = 'flex';
                 fetchContainer.style.display = 'none';
                 copyContainer.style.display = 'none';
+                helpContainer.style.display = 'flex';
             } else {
                 inputGroup.style.display = 'none';
                 fetchContainer.style.display = 'flex';
                 copyContainer.style.display = 'flex';
+                helpContainer.style.display = 'none';
             }
         });
 
