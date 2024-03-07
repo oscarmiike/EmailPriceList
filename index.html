@@ -30,6 +30,9 @@
         <div class="copied-message" id="copyMessage">
             Content copied to clipboard.
         </div>
+        <div class="copied-message" id="refreshedMessage">
+            Asset Prices fetched.
+        </div>
         <div class="fetch-container">
             <button class="get-btn" onclick="fetchPriceList()">
                 Fetch Prices
@@ -228,8 +231,12 @@
                     return response.json();
                 })
                 .then(data => {
-                    //displayPriceList(data);
                     priceSheetCalcs(data);
+                    fadeIn(refreshedMessage, () => {
+                            setTimeout(() => {
+                                fadeOut(refreshedMessage);
+                            }, 2000);
+                        });
                     console.log(data);
                 })
                 .catch(error => {
