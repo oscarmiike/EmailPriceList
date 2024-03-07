@@ -27,13 +27,38 @@
         <div class="fetch-container">
             <button class="get-btn" onclick="fetchPriceList()">Fetch Prices</button>
         </div>
-        <div class="fetch-container">
+        <div class="copy-container">
             <button class="get-btn" onclick="fetchPriceList()">Copy to clipboard</button>
         </div>
     </div>
 
-    <div class="container">
+    <div style="display:none;" class="emailContainer">
         <div id="price-list" class="price-list">
+        </div>
+    </div>
+
+    <div class="helpContainer">
+        <div id="help" class="tokenHelp">
+            You do not have a Token stored in this session. Please follow these steps:
+            <ol>
+                <li>
+                    Go to <a href="https://dev-api.ainsliebullion.com.au" target="_blank">https://dev-api.ainsliebullion.com.au</a> and log in
+                </li>
+                <li>
+                    After logging in, click on your email address at the top right of the screen
+                </li>
+                <li>
+                    Click on "Generate New Token", then click on "Copy"
+                </li>
+                <li>
+                    Paste the token at the top of this page where it says "Enter token here", and click the submission arrow
+                </li>
+                <li>
+                    You should now be able to use the "Fetch Prices" button
+                </li>
+            </ol>
+
+
         </div>
     </div>
 
@@ -41,10 +66,17 @@
         document.addEventListener('DOMContentLoaded', function () {
             const token = getCookie('apiToken');
             const inputGroup = document.querySelector('.input-group');
+            const fetchContainer = document.querySelector('.fetch-container');
+            const copyContainer = document.querySelector('.copy-container');
+
             if (!token) {
                 inputGroup.style.display = 'flex';
+                fetchContainer.style.display = 'none';
+                copyContainer.style.display = 'none';
             } else {
                 inputGroup.style.display = 'none';
+                fetchContainer.style.display = 'flex';
+                copyContainer.style.display = 'flex';
             }
         });
 
@@ -53,39 +85,33 @@
             const token = tokenInput.value;
 
             if (!token) return;
-            
+
             document.cookie = `apiToken=${token};path=/`;
 
-            // Select the input group and the success message elements
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
 
-            // Fade out the input group
             inputGroup.classList.add('fade-out');
             setTimeout(() => {
                 inputGroup.style.display = 'none';
 
-                // Clear the input field
                 tokenInput.value = '';
 
-                // Prepare the success message for fading in
                 successMessage.style.display = 'block';
-                successMessage.style.opacity = 0; // Make sure it starts as invisible for fade-in effect
+                successMessage.style.opacity = 0; 
                 successMessage.classList.add('fade-in');
 
-                // Allow the success message to fade in then out
                 setTimeout(() => {
                     successMessage.classList.remove('fade-in');
                     successMessage.classList.add('fade-out');
 
-                    // Optional: remove the success message from view after fade-out
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                        successMessage.classList.remove('fade-out'); // Reset for next use
-                    }, 1000); // This timeout should match the fade-out duration
+                        successMessage.classList.remove('fade-out'); 
+                    }, 1000); 
 
-                }, 4000); // This delay allows the success message to be read before fading out
-            }, 1000); // This timeout should match the fade-out duration for the input group
+                }, 4000); 
+            }, 1000); 
         }
 
 

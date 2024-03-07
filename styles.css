@@ -1,9 +1,15 @@
+html {
+    height: 100%; 
+}
+
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background: linear-gradient(180deg, #d7d2cc 0%, #304352 100%);    color: #333;
     line-height: 1.6;
     margin: 0;
+    min-height: 98vh; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
 }
 
 .titleContainer {
@@ -11,7 +17,7 @@ body {
     margin: 0;
     background: #1d2125;
     color: #fff;
-    padding: 10px;
+    padding-top:15px;
     padding-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -25,7 +31,7 @@ body {
     margin-left: 10px;
 }
 
-.container {
+.emailContainer {
     max-width: 600px;
     margin: auto;
     margin-bottom: 20px;
@@ -34,6 +40,19 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.helpContainer {
+    margin: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tokenHelp {
+    font-size: 14px;
+    padding-right: 30px;
 }
 
 .input-group {
@@ -108,6 +127,16 @@ input[type="text"]:hover {
 }
 
 .fetch-container {
+    display: inline-flex; 
+    align-items: center; 
+    margin-right: 20px;
+    background-color: #2b3137; 
+    border-radius: 4px; 
+    border: 1px solid #464646; 
+    color: #cccccc; 
+}
+
+.copy-container {
     display: inline-flex; 
     align-items: center; 
     margin-right: 20px;
