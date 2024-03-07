@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h2>Asset Price List</h2>
+<h2>Asset Price List..</h2>
 
 <!-- Placeholder for the API response -->
 <div id="price-list">
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function fetchPriceList() {
     fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
         method: 'GET',
-        credentials: 'include' // Ensure cookies are included with the request
+        credentials: 'include' 
     })
     .then(response => {
         if (!response.ok) {
