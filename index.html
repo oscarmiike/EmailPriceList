@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HTMX Asset Price List Example</title>
+    <title>Asset Price List</title>
     <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <body>
@@ -23,7 +23,6 @@
 <script>
 document.body.addEventListener('htmx:afterSwap', function(event) {
     if (event.target.id === 'price-list') {
-        // Assuming the API returns JSON, parse the response and format it for display
         try {
             const jsonResponse = JSON.parse(event.detail.xhr.response);
             const formattedHtml = formatJsonToHtml(jsonResponse);
@@ -36,8 +35,7 @@ document.body.addEventListener('htmx:afterSwap', function(event) {
 });
 
 function formatJsonToHtml(json) {
-    // This function takes JSON data and converts it to HTML
-    // Adjust this to match the structure of your API's response
+
     let html = '<ul>';
     if (json && Array.isArray(json.data)) {
         json.data.forEach(item => {
