@@ -1,39 +1,109 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
     margin: 0;
+}
+
+.titleContainer {
+    width: 100%;
+    margin: 0;
+    background: #1d2125;
+    color: #fff;
+    padding: 10px;
+    padding-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    flex: 1; 
+    color: #cccccc;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .container {
     max-width: 600px;
     margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 .input-group {
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    position: relative; 
+    width: 50%;
+    margin-right: 20px;
 }
 
 input[type="text"] {
-    width: calc(100% - 120px);
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 5px;
+    padding-right: 40px; 
+    background-color: #2b3137;
+    color: #cccccc;
+    border: 1px solid #464646;
+    border-radius: 4px; 
+    transition: box-shadow 0.3s ease;
 }
+
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(81, 203, 238, 1);
+}
+
+input[type="text"]:hover {
+    outline: none;
+    box-shadow: 0 0 6px rgba(81, 203, 238, 1);
+}
+
+.icon-btn {
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    padding: 5px 10px; 
+    border: 1px solid #464646;
+    background: #2b3137;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0; 
+}
+
+.fetch-container {
+    display: inline-flex; 
+    align-items: center; 
+    margin-right: 20px;
+    background-color: #2b3137; 
+    border-radius: 4px; 
+    border: 1px solid #464646; 
+    color: #cccccc; 
+}
+
+.get-btn {
+    padding: 5px 10px;
+    background: #2b3137;
+    color: #cccccc;
+    border: 1px solid #464646;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: box-shadow 0.3s ease;
+}
+
+.get-btn:hover {
+    outline: none;
+    box-shadow: 0 0 6px rgba(81, 203, 238, 1);
+}
+
+
 
 .btn {
     padding: 10px 20px;
@@ -42,16 +112,14 @@ input[type="text"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #004494;
+    margin-left: 8px; /* Adjust spacing between this button and the icon button */
 }
 
 .fetch-btn {
     display: block;
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .price-list {

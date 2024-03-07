@@ -5,24 +5,33 @@
     <meta charset="UTF-8">
     <title>Asset Price List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container">
-        <h2>Asset Price List</h2>
 
-        <!-- Input for the token -->
+    <div class="titleContainer">
+        <span class="title">Asset Price List</span>
         <div class="input-group">
-            <input type="text" id="tokenInput" placeholder="Enter token here" />
-            <button class="btn" onclick="saveToken()">Save Token</button>
+            <input type="text" id="tokenInput" placeholder="Enter token here">
+            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i></button>
         </div>
+        <div class="fetch-container">
+            <button class="get-btn" onclick="fetchPriceList()">Fetch Prices</button>
+        </div>
+        <div class="fetch-container">
+            <button class="get-btn" onclick="fetchPriceList()">Copy to clipboard</button>
+        </div>
+    </div>
 
-        <!-- Button to fetch price list -->
-        <button class="btn fetch-btn" onclick="fetchPriceList()">Fetch Price List</button>
-
+    <div class="container">
         <div id="price-list" class="price-list">
-            Loading price list...
         </div>
     </div>
 
@@ -32,16 +41,16 @@
 
         function saveToken() {
             const token = document.getElementById('tokenInput').value;
-            document.cookie = `apiToken=${token};path=/`; 
+            document.cookie = `apiToken=${token};path=/`;
         }
 
         function fetchPriceList() {
-            const token = getCookie('apiToken'); 
+            const token = getCookie('apiToken');
             fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, 
+                    'Authorization': `Bearer ${token}`,
                 },
             })
                 .then(response => {
