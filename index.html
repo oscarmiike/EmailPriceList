@@ -22,6 +22,8 @@
             <input type="text" id="tokenInput" placeholder="Enter token here">
             <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i></button>
         </div>
+        <div class="success-message" id="successMessage" style="display: none; opacity: 0;">Token added successfully
+        </div>
         <div class="fetch-container">
             <button class="get-btn" onclick="fetchPriceList()">Fetch Prices</button>
         </div>
@@ -42,15 +44,39 @@
             if (!token) {
                 inputGroup.style.display = 'flex';
             } else {
-                inputGroup.style.display = 'none'; 
+                inputGroup.style.display = 'none';
             }
         });
 
         function saveToken() {
-            const token = document.getElementById('tokenInput').value;
+            const tokenInput = document.getElementById('tokenInput');
+            const token = tokenInput.value;
             document.cookie = `apiToken=${token};path=/`;
-            document.querySelector('.input-group').style.display = 'none';
-            document.querySelector('.input-group').value = '';
+
+            const inputGroup = document.querySelector('.input-group');
+            const successMessage = document.getElementById('successMessage');
+
+            inputGroup.classList.add('fade-out');
+            setTimeout(() => {
+                inputGroup.style.display = 'none';
+
+                tokenInput.value = '';
+
+                successMessage.style.display = 'block';
+                successMessage.style.opacity = 0; 
+                successMessage.classList.add('fade-in');
+
+                setTimeout(() => {
+                    successMessage.classList.remove('fade-in');
+                    successMessage.classList.add('fade-out');
+
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                        successMessage.classList.remove('fade-out'); 
+                    }, 1000); 
+
+                }, 9000); 
+            }, 1000); 
         }
 
         function fetchPriceList() {
