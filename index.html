@@ -36,26 +36,26 @@
     <div class="asset-container">
         <div id="bullion" class="asset-box">
             <div id="bullionCopy">
-                <table style="border:1px solid black; width:100%; border-spacing: 0px !important;" cellspacing="0"
+                <table style="border: none; width:100%; border-spacing: 0px !important;" cellspacing="0"
                     cellpadding="0">
                     <tbody>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span class="gold-silver-ratio">Gold:Siver Ratio - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span class="aud-usd-rate">AUD/USD - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span class="gold-price">Gold - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span class="silver-price">Silver - Placeholder</span>
                             </td>
                         </tr>
@@ -65,26 +65,26 @@
         </div>
         <div id="digital" class="asset-box">
             <div id="digitalCopy">
-                <table style="border:1px solid black; width:100%; border-spacing: 0px !important;" cellspacing="0"
+                <table style="border:none; width:100%; border-spacing: 0px !important;" cellspacing="0"
                     cellpadding="0">
                     <tbody>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span>Gold:Siver Ratio - 88.87</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span>AUD/USD - 0.6565</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span>Gold - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
+                            <td style="padding-bottom: 10px; ">
                                 <span>Silver - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
                             </td>
                         </tr>
@@ -133,17 +133,20 @@
             const fetchContainer = document.querySelector('.fetch-container');
             const copyContainer = document.querySelector('.copy-container');
             const helpContainer = document.querySelector('.helpContainer');
+            const assetContainer = document.querySelector('.asset-container');
 
             if (!token) {
-                inputGroup.style.display = 'flex';
                 fetchContainer.style.display = 'none';
+                assetContainer.style.display = 'none';
                 copyContainer.style.display = 'none';
+                inputGroup.style.display = 'flex';
                 helpContainer.style.display = 'flex';
             } else {
                 inputGroup.style.display = 'none';
+                helpContainer.style.display = 'none';
                 fetchContainer.style.display = 'flex';
                 copyContainer.style.display = 'flex';
-                helpContainer.style.display = 'none';
+                assetContainer.style.display = 'flex';
             }
         });
 
@@ -173,9 +176,9 @@
             const fetchContainer = document.querySelector('.fetch-container');
             const copyContainer = document.querySelector('.copy-container');
             const helpContainer = document.querySelector('.helpContainer');
-            const emailContainer = document.querySelector('.emailContainer');
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
+            const assetContainer = document.querySelector('.asset-container');
 
             if (!token) return;
             if (token.length < 2) {
@@ -197,7 +200,7 @@
 
                             fadeIn(fetchContainer);
                             fadeIn(copyContainer);
-                            fadeIn(emailContainer);
+                            fadeIn(assetContainer);
                         });
                         fadeOut(helpContainer);
                     }, 2000);
@@ -231,7 +234,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
+                    document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
                 });
         }
 
@@ -260,8 +263,8 @@
             // Update individual elements by class name
             document.querySelector(".gold-silver-ratio").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
             document.querySelector(".aud-usd-rate").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
-            document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} AU$${goldSpotPriceAU.toFixed(2)}`;
-            document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} AU$${silverSpotPriceAU.toFixed(2)}`;
+            document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$21 / 0.98%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$4 / 0.12%)`;
+            document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$21 / 0.98%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$4 / 0.12%)`;
         }
 
 
