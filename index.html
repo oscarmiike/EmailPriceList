@@ -3,41 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Asset Price List</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 
 <h2>Asset Price List</h2>
+
+<!-- Input for the token -->
+<div>
+    <input type="text" id="tokenInput" placeholder="Enter token here" />
+    <button onclick="saveToken()">Save Token</button>
+</div>
+
+<!-- Button to fetch price list -->
+<button onclick="fetchPriceList()">Fetch Price List</button>
 
 <div id="price-list">
     Loading price list...
 </div>
 
 <script>
-$(document).ready(function() {
-    fetchPriceList();
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial fetch is removed to rely on user input
 });
 
+function saveToken() {
+    const token = document.getElementById('tokenInput').value;
+    document.cookie = `apiToken=${token};path=/`; // Save the token as a cookie
+}
+
 function fetchPriceList() {
-    $.ajax({
-        url: 'https://dev-api.ainsliebullion.com.au/assets/pricelist',
-        type: 'GET',
-        xhrFields: {
-            withCredentials: true
+    const token = getCookie('apiToken'); // Retrieve the token from the cookie
+    fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, // Include the token in the request headers
         },
-        crossDomain: true,
-        contentType: 'application/json',
-        success: function(data) {
-            displayPriceList(data);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            $('#price-list').html('<p>Error loading price list.</p>');
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.json();
+    })
+    .then(data => {
+        displayPriceList(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
     });
 }
 
 function displayPriceList(data) {
+    const priceListDiv = document.getElementById('price-list');
     let html = '<ul>';
     if (data && Array.isArray(data.data)) {
         data.data.forEach(item => {
@@ -47,7 +66,19 @@ function displayPriceList(data) {
         html += '<li>No data found</li>';
     }
     html += '</ul>';
-    $('#price-list').html(html);
+    priceListDiv.innerHTML = html;
+}
+
+// Utility function to get a cookie by name
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for(let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if(name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
 }
 </script>
 
