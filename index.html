@@ -51,33 +51,45 @@
         function saveToken() {
             const tokenInput = document.getElementById('tokenInput');
             const token = tokenInput.value;
+
+            if (!token) return;
+            
             document.cookie = `apiToken=${token};path=/`;
 
+            // Select the input group and the success message elements
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
 
+            // Fade out the input group
             inputGroup.classList.add('fade-out');
             setTimeout(() => {
                 inputGroup.style.display = 'none';
 
+                // Clear the input field
                 tokenInput.value = '';
 
+                // Prepare the success message for fading in
                 successMessage.style.display = 'block';
-                successMessage.style.opacity = 0; 
+                successMessage.style.opacity = 0; // Make sure it starts as invisible for fade-in effect
                 successMessage.classList.add('fade-in');
 
+                // Allow the success message to fade in then out
                 setTimeout(() => {
                     successMessage.classList.remove('fade-in');
                     successMessage.classList.add('fade-out');
 
+                    // Optional: remove the success message from view after fade-out
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                        successMessage.classList.remove('fade-out'); 
-                    }, 1000); 
+                        successMessage.classList.remove('fade-out'); // Reset for next use
+                    }, 1000); // This timeout should match the fade-out duration
 
-                }, 9000); 
-            }, 1000); 
+                }, 4000); // This delay allows the success message to be read before fading out
+            }, 1000); // This timeout should match the fade-out duration for the input group
         }
+
+
+
 
         function fetchPriceList() {
             const token = getCookie('apiToken');
