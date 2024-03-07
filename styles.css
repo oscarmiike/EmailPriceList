@@ -33,13 +33,6 @@ body {
     margin-left: 20px;
 }
 
-.emailContainer {
-    margin: 20px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 .asset-container {
     display: flex;
@@ -55,8 +48,16 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left; 
+    position: relative;
 }
 
+.copy-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #333; 
+}
 
 .helpContainer {
     margin: 20px;

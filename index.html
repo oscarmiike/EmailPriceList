@@ -35,11 +35,6 @@
                 Fetch Prices
             </button>
         </div>
-        <div class="copy-container">
-            <button id="copyBtn" class="get-btn">
-                Copy to clipboard
-            </button>
-        </div>
     </div>
 
     <!-- Email template section -->
@@ -72,7 +67,9 @@
                     </tbody>
                 </table>
             </div>
+            <i class="fas fa-copy copy-icon" onclick="CopyFunction('bullionCopy')"></i>
         </div>
+
         <div id="digital" class="asset-box">
             <div id="digitalCopy">
                 <table style="border:none; width:100%; border-spacing: 0px !important;" cellspacing="0" cellpadding="0">
@@ -100,6 +97,7 @@
                     </tbody>
                 </table>
             </div>
+            <i class="fas fa-copy copy-icon" onclick="CopyFunction('digitalCopy')"></i>
         </div>
     </div>
 
@@ -140,21 +138,18 @@
             const token = getCookie('apiToken');
             const inputGroup = document.querySelector('.input-group');
             const fetchContainer = document.querySelector('.fetch-container');
-            const copyContainer = document.querySelector('.copy-container');
             const helpContainer = document.querySelector('.helpContainer');
             const assetContainer = document.querySelector('.asset-container');
 
             if (!token) {
                 fetchContainer.style.display = 'none';
                 assetContainer.style.display = 'none';
-                copyContainer.style.display = 'none';
                 inputGroup.style.display = 'flex';
                 helpContainer.style.display = 'flex';
             } else {
                 inputGroup.style.display = 'none';
                 helpContainer.style.display = 'none';
                 fetchContainer.style.display = 'flex';
-                copyContainer.style.display = 'flex';
                 assetContainer.style.display = 'flex';
             }
         });
@@ -183,7 +178,6 @@
             const tokenInput = document.getElementById('tokenInput');
             const token = tokenInput.value;
             const fetchContainer = document.querySelector('.fetch-container');
-            const copyContainer = document.querySelector('.copy-container');
             const helpContainer = document.querySelector('.helpContainer');
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
@@ -205,10 +199,8 @@
                     setTimeout(() => {
                         fadeOut(successMessage, () => {
                             fetchContainer.style.opacity = 0;
-                            copyContainer.style.opacity = 0;
 
                             fadeIn(fetchContainer);
-                            fadeIn(copyContainer);
                             fadeIn(assetContainer);
                         });
                         fadeOut(helpContainer);
@@ -217,7 +209,6 @@
             });
 
             fetchContainer.style.display = 'none';
-            copyContainer.style.display = 'none';
         }
 
 
@@ -305,32 +296,30 @@
             return null;
         }
 
-        document.getElementById('copyBtn').addEventListener('click', function () {
-
-            const contentToCopy = document.getElementById('bullionCopy');
-            const successMessage = document.getElementById('successMessage');
-
-            console.log("contentToCopy: ", contentToCopy)
+        function CopyFunction(sectionId) {
+            const contentToCopy = document.getElementById(sectionId);
+            const copyMessage = document.getElementById('copyMessage'); 
 
             if (window.getSelection && document.createRange) {
                 const selection = window.getSelection();
                 selection.removeAllRanges();
 
                 const range = document.createRange();
-                console.log("range: ", range)
-
                 range.selectNodeContents(contentToCopy);
                 selection.addRange(range);
 
-                console.log("range.selectNodeContents(contentToCopy) ", range.selectNodeContents(contentToCopy))
-
                 try {
-                    document.execCommand('copy');
-                    fadeIn(copyMessage, () => {
-                        setTimeout(() => {
-                            fadeOut(copyMessage);
-                        }, 2000);
-                    });
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        console.log('Content copied successfully!');
+                        fadeIn(copyMessage, () => {
+                            setTimeout(() => {
+                                fadeOut(copyMessage);
+                            }, 2000);
+                        });
+                    } else {
+                        console.error('Copy command was unsuccessful');
+                    }
                 } catch (err) {
                     console.error('Failed to copy content: ', err);
                 }
@@ -339,7 +328,8 @@
             } else {
                 console.error('Your browser does not support this copy method.');
             }
-        });
+        }
+
 
     </script>
 
