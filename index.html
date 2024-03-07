@@ -41,22 +41,22 @@
                     <tbody>
                         <tr>
                             <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
-                                <span>Gold:Siver Ratio - 88.87</span>
+                                <span class="gold-silver-ratio">Gold:Siver Ratio - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
-                                <span>AUD/USD - 0.6565</span>
+                                <span class="aud-usd-rate">AUD/USD - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
-                                <span>Gold - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                                <span class="gold-price">Gold - Placeholder</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 10px; border-bottom: 1px solid black;">
-                                <span>Silver - US$2,418 (Up US$21 / 0.98%) AU$3,273 (Up AU$4 / 0.12%)</span>
+                                <span class="silver-price">Silver - Placeholder</span>
                             </td>
                         </tr>
                     </tbody>
@@ -244,28 +244,23 @@
                     if (item.assetName === "Gold") {
                         audPrice = item.audusd;
                         goldSpotPriceAU = item.spot;
-                        goldSpotPriceUS = item.audusd * goldSpotPriceAU;
-                    }
-                    else if (item.assetName === "Silver") {
+                        goldSpotPriceUS = item.spot / item.audusd;
+                    } else if (item.assetName === "Silver") {
                         silverSpotPriceAU = item.spot;
-                        silverSpotPriceUS = item.audusd * silverSpotPriceAU;
-                    } 
+                        silverSpotPriceUS = item.spot / item.audusd;
+                    }
                 });
             }
 
-            if (goldSpotPriceAU > 0 && silverSpotPriceAU > 0) {
-                let GSR = goldSpotPriceAU / silverSpotPriceAU;
-                console.log(`Gold to Silver Ratio: ${GSR}`);
-            } else {
-                console.log("Gold or Silver data missing");
-            }
-            
-            console.log('AUDUSD Price: ', audPrice);
-            console.log('Gold USD: ', goldSpotPriceUS);
-            console.log('Silver USD: ', silverSpotPriceUS);
-            console.log('Gold AUD ', goldSpotPriceAU);
-            console.log('Silver AUD ', silverSpotPriceAU);
+            const GSR = goldSpotPriceAU / silverSpotPriceAU;
+
+            // Update individual elements by class name
+            document.querySelector(".gold-silver-ratio").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
+            document.querySelector(".aud-usd-rate").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
+            document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} AU$${goldSpotPriceAU.toFixed(2)}`;
+            document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} AU$${silverSpotPriceAU.toFixed(2)}`;
         }
+
 
         function displayPriceList(data) {
             const priceListDiv = document.getElementById('price-list');
