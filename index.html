@@ -3,49 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Asset Price List</title>
-    <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <body>
 
 <h2>Asset Price List</h2>
 
-<!-- Trigger a GET request on page load and display the result in this div -->
-<div hx-get="https://dev-api.ainsliebullion.com.au/assets/pricelist"
-     hx-trigger="load"
-     hx-target="#price-list"
-     hx-swap="innerHTML">
+<!-- Placeholder for the API response -->
+<div id="price-list">
     Loading price list...
 </div>
 
-<!-- Placeholder for the API response -->
-<div id="price-list"></div>
-
 <script>
-document.body.addEventListener('htmx:afterSwap', function(event) {
-    if (event.target.id === 'price-list') {
-        try {
-            const jsonResponse = JSON.parse(event.detail.xhr.response);
-            const formattedHtml = formatJsonToHtml(jsonResponse);
-            event.target.innerHTML = formattedHtml;
-        } catch (error) {
-            console.error('Error parsing JSON response:', error);
-            event.target.innerHTML = '<p>Error loading price list.</p>';
-        }
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    fetchPriceList();
 });
 
-function formatJsonToHtml(json) {
+function fetchPriceList() {
+    fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+        method: 'GET',
+        credentials: 'include' // Ensure cookies are included with the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        displayPriceList(data);
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+        document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
+    });
+}
 
+function displayPriceList(data) {
+    const priceListDiv = document.getElementById('price-list');
     let html = '<ul>';
-    if (json && Array.isArray(json.data)) {
-        json.data.forEach(item => {
+    if (data && Array.isArray(data.data)) {
+        data.data.forEach(item => {
             html += `<li>${item.asset}: $${item.price}</li>`;
         });
     } else {
         html += '<li>No data found</li>';
     }
     html += '</ul>';
-    return html;
+    priceListDiv.innerHTML = html;
 }
 </script>
 
