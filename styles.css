@@ -14,11 +14,11 @@ body {
 
 .titleContainer {
     width: 100%;
-    margin: 0;
+    height:30px;
     background: #1d2125;
     color: #fff;
     padding-top:15px;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -28,7 +28,7 @@ body {
     flex: 1; 
     color: #cccccc;
     text-align: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .emailContainer {
@@ -89,8 +89,6 @@ body {
     font-size: 14px;
     transition: opacity 1s ease-in-out; 
 }
-
-
 
 
 input[type="text"] {

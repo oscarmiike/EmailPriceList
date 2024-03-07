@@ -42,7 +42,8 @@
             You do not have a Token stored in this session. Please follow these steps:
             <ol>
                 <li>
-                    Go to <a href="https://dev-api.ainsliebullion.com.au" target="_blank">https://dev-api.ainsliebullion.com.au</a> and log in
+                    Go to <a href="https://dev-api.ainsliebullion.com.au"
+                        target="_blank">https://dev-api.ainsliebullion.com.au</a> and log in
                 </li>
                 <li>
                     After logging in, click on your email address at the top right of the screen
@@ -51,7 +52,8 @@
                     Click on "Generate New Token", then click on "Copy"
                 </li>
                 <li>
-                    Paste the token at the top of this page where it says "Enter token here", and click the submission arrow
+                    Paste the token at the top of this page where it says "Enter token here", and click the submission
+                    arrow
                 </li>
                 <li>
                     You should now be able to use the "Fetch Prices" button
@@ -83,6 +85,8 @@
         function saveToken() {
             const tokenInput = document.getElementById('tokenInput');
             const token = tokenInput.value;
+            const fetchContainer = document.querySelector('.fetch-container');
+            const copyContainer = document.querySelector('.copy-container');
 
             if (!token) return;
 
@@ -91,28 +95,44 @@
             const inputGroup = document.querySelector('.input-group');
             const successMessage = document.getElementById('successMessage');
 
+            // Initially hide fetchContainer and copyContainer
+            fetchContainer.style.display = 'none';
+            copyContainer.style.display = 'none';
+
             inputGroup.classList.add('fade-out');
             setTimeout(() => {
                 inputGroup.style.display = 'none';
-
                 tokenInput.value = '';
 
                 successMessage.style.display = 'block';
-                successMessage.style.opacity = 0; 
+                successMessage.style.opacity = 1; // Start with full opacity for successMessage
                 successMessage.classList.add('fade-in');
 
                 setTimeout(() => {
                     successMessage.classList.remove('fade-in');
                     successMessage.classList.add('fade-out');
 
+                    // Wait for the success message fade-out to complete
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                        successMessage.classList.remove('fade-out'); 
-                    }, 1000); 
 
-                }, 4000); 
-            }, 1000); 
+                        // Now display fetchContainer and copyContainer and apply fade-in effect
+                        fetchContainer.style.display = 'flex';
+                        copyContainer.style.display = 'flex';
+                        fetchContainer.style.opacity = 0; // Start with 0 opacity for fade-in
+                        copyContainer.style.opacity = 0; // Start with 0 opacity for fade-in
+
+                        // Add fade-in class to start the fade-in animation
+                        fetchContainer.classList.add('fade-in');
+                        copyContainer.classList.add('fade-in');
+
+                    }, 1000); // This timeout matches the duration of the fade-out animation
+
+                }, 2000); // Adjust as needed for how long to display the success message before starting fade-out
+            }, 1000);
         }
+
+
 
 
 
