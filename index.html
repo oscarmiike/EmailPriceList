@@ -37,11 +37,19 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const token = getCookie('apiToken');
+            const inputGroup = document.querySelector('.input-group');
+            if (!token) {
+                inputGroup.style.display = 'none';
+            } else {
+                inputGroup.style.display = 'flex'; 
+            }
         });
 
         function saveToken() {
             const token = document.getElementById('tokenInput').value;
             document.cookie = `apiToken=${token};path=/`;
+            document.querySelector('.input-group').style.display = 'flex';
         }
 
         function fetchPriceList() {
