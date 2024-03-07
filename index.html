@@ -1,92 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Asset Price List</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h2>Asset Price List</h2>
+    <div class="container">
+        <h2>Asset Price List</h2>
 
-<!-- Input for the token -->
-<div>
-    <input type="text" id="tokenInput" placeholder="Enter token here" />
-    <button onclick="saveToken()">Save Token</button>
-</div>
+        <!-- Input for the token -->
+        <div class="input-group">
+            <input type="text" id="tokenInput" placeholder="Enter token here" />
+            <button class="btn" onclick="saveToken()">Save Token</button>
+        </div>
 
-<!-- Button to fetch price list -->
-<button onclick="fetchPriceList()">Fetch Price List</button>
+        <!-- Button to fetch price list -->
+        <button class="btn fetch-btn" onclick="fetchPriceList()">Fetch Price List</button>
 
-<div id="price-list">
-    Loading price list...
-</div>
+        <div id="price-list" class="price-list">
+            Loading price list...
+        </div>
+    </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initial fetch is removed to rely on user input
-});
-
-function saveToken() {
-    const token = document.getElementById('tokenInput').value;
-    document.cookie = `apiToken=${token};path=/`; // Save the token as a cookie
-}
-
-function fetchPriceList() {
-    const token = getCookie('apiToken'); // Retrieve the token from the cookie
-    fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Include the token in the request headers
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        displayPriceList(data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
-    });
-}
-
-function displayPriceList(data) {
-    const priceListDiv = document.getElementById('price-list');
-    let html = '<ul>';
-    
-    // Directly iterate over 'data' as it's already the array you want to process
-    if (data && Array.isArray(data)) {
-        data.forEach(item => {
-            // Update this line to display the information you're interested in
-            // For example, combining assetName and spot price:
-            html += `<li>${item.assetName}: $${item.spot}</li>`;
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
         });
-    } else {
-        html += '<li>No data found</li>';
-    }
-    
-    html += '</ul>';
-    priceListDiv.innerHTML = html;
-}
 
-
-// Utility function to get a cookie by name
-function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    for(let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if(name == cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
+        function saveToken() {
+            const token = document.getElementById('tokenInput').value;
+            document.cookie = `apiToken=${token};path=/`; 
         }
-    }
-    return null;
-}
-</script>
+
+        function fetchPriceList() {
+            const token = getCookie('apiToken'); 
+            fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, 
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayPriceList(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
+                });
+        }
+
+        function displayPriceList(data) {
+            const priceListDiv = document.getElementById('price-list');
+            let html = '<ul>';
+
+            if (data && Array.isArray(data)) {
+                data.forEach(item => {
+                    html += `<li>${item.assetName}: $${item.spot}</li>`;
+                });
+            } else {
+                html += '<li>No data found</li>';
+            }
+
+            html += '</ul>';
+            priceListDiv.innerHTML = html;
+        }
+
+
+        function getCookie(name) {
+            let cookieArr = document.cookie.split(";");
+            for (let i = 0; i < cookieArr.length; i++) {
+                let cookiePair = cookieArr[i].split("=");
+                if (name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+    </script>
 
 </body>
+
 </html>
