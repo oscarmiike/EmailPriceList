@@ -233,31 +233,38 @@
         }
 
         function priceSheetCalcs(data) {
-            // Initialize variables to store the spot prices of Gold and Silver
-            let goldSpotPrice = 0;
-            let silverSpotPrice = 0;
+            let goldSpotPriceAU = 0;
+            let silverSpotPriceAU = 0;
+            let goldSpotPriceUS = 0;
+            let silverSpotPriceUS = 0;
+            let audPrice = 0;
 
-            // Ensure data is an array
             if (data && Array.isArray(data)) {
                 data.forEach(item => {
-                    // Check for Gold and update its spot price
                     if (item.assetName === "Gold") {
-                        goldSpotPrice = item.spot;
+                        audPrice = item.audusd;
+                        goldSpotPriceAU = item.spot;
+                        goldSpotPriceUS = item.audusd * goldSpotPriceAU;
                     }
-                    // Check for Silver and update its spot price
                     else if (item.assetName === "Silver") {
-                        silverSpotPrice = item.spot;
-                    }
+                        silverSpotPriceAU = item.spot;
+                        silverSpotPriceUS = item.audusd * silverSpotPriceAU;
+                    } 
                 });
             }
 
-            // Calculate the Gold to Silver Ratio if both prices are available
-            if (goldSpotPrice > 0 && silverSpotPrice > 0) {
-                let GSR = goldSpotPrice / silverSpotPrice;
+            if (goldSpotPriceAU > 0 && silverSpotPriceAU > 0) {
+                let GSR = goldSpotPriceAU / silverSpotPriceAU;
                 console.log(`Gold to Silver Ratio: ${GSR}`);
             } else {
                 console.log("Gold or Silver data missing");
             }
+            
+            console.log('AUDUSD Price: ', audPrice);
+            console.log('Gold USD: ', goldSpotPriceUS);
+            console.log('Silver USD: ', silverSpotPriceUS);
+            console.log('Gold AUD ', goldSpotPriceAU);
+            console.log('Silver AUD ', silverSpotPriceAU);
         }
 
         function displayPriceList(data) {
