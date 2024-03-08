@@ -240,6 +240,15 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log(ETHSpotAU);
     console.log(ETHOldSpotAU);
 
+    console.log("goldChangeAU ", goldChangeAU);
+    console.log("silverChangeAU ", silverChangeAU);
+    console.log("goldChangeUS ", goldChangeUS);
+    console.log("silverChangeUS ", silverChangeUS);
+    console.log("goldChangeAUpc ", goldChangeAUpc);
+    console.log("silverChangeAUpc ", silverChangeAUpc);
+    console.log("goldChangeUSpc ", goldChangeUSpc);
+    console.log("silverChangeUSpc ", silverChangeUSpc);
+
     const goldChangeAU = goldSpotAU - goldOldSpotAU;
     const silverChangeAU = silverSpotAU - silverOldSpotAU;
     const goldChangeUS = (goldSpotUS * audPrice) - goldOldSpotAU;
