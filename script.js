@@ -5,26 +5,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
 
-    const dev = 1;
 
-    if (dev === 1) {
+
+    if (!token) {
+        fetchContainer.style.display = 'none';
+        assetContainer.style.display = 'none';
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
+    } else {
+        inputGroup.style.display = 'none';
+        helpContainer.style.display = 'none';
         fetchContainer.style.display = 'flex';
         assetContainer.style.display = 'flex';
-    } else {
-        if (!token) {
-            fetchContainer.style.display = 'none';
-            assetContainer.style.display = 'none';
-            inputGroup.style.display = 'flex';
-            helpContainer.style.display = 'flex';
-        } else {
-            inputGroup.style.display = 'none';
-            helpContainer.style.display = 'none';
-            fetchContainer.style.display = 'flex';
-            assetContainer.style.display = 'flex';
-        }
     }
+
 
     // function checkWindowSize() {
     //     if (window.innerWidth < 1000) {
@@ -38,6 +32,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // window.onresize = checkWindowSize;
 });
 
+function setdev() {
+    const inputGroup = document.querySelector('.input-group');
+    const fetchContainer = document.querySelector('.fetch-container');
+    const helpContainer = document.querySelector('.helpContainer');
+    const assetContainer = document.querySelector('.asset-container');
+    inputGroup.style.display = 'flex';
+    helpContainer.style.display = 'flex';
+    fetchContainer.style.display = 'flex';
+    assetContainer.style.display = 'flex';
+}
 
 function fadeIn(element, callback = () => { }) {
     element.style.opacity = 0;
