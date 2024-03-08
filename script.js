@@ -105,9 +105,11 @@ function fetchCombinedData() {
     const btn = document.querySelector('.get-btn');
     const originalText = btn.innerHTML;
 
-    const startTime = performance.now(); // Record start time
+    // Disable button immediately and add loading style
+    btn.disabled = true;
+    btn.classList.add('loading');
 
-    btn.classList.add('loading'); // Apply loading style immediately
+    const startTime = performance.now(); // Record start time
 
     const token = getCookie('apiToken');
 
@@ -163,6 +165,7 @@ function fetchCombinedData() {
             btn.disabled = false;
         });
 }
+
 
 
 
