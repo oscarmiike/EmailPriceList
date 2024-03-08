@@ -215,17 +215,13 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
-    //document.querySelector(".gold-price-b").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
-    //document.querySelector(".silver-price-b").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
-
 
     updateMetalPrices('gold', 'b', goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
     updateMetalPrices('silver', 'b', silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
 
     function updateMetalPrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
-        // Determine direction text
-        const directionTextUS = changeUS > 0 ? "Up" : changeUS < 0 ? "Down" : "No Change";
-        const directionTextAU = changeAU > 0 ? "Up" : changeAU < 0 ? "Down" : "No Change";
+        const directionTextUS = changeUS > 0 ? upArrow : changeUS < 0 ? dnArrow : "No Change";
+        const directionTextAU = changeAU > 0 ? upArrow : changeAU < 0 ? dnArrow : "No Change";
     
         // Update US Price
         document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US$${spotPriceUS.toFixed(2)}`;
