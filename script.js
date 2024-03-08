@@ -1,21 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // Load all the base64 images
-    function updateImage(className, image) {
+    function updateImage(className, image, h, w) {
         const elements = document.querySelectorAll(className);
         elements.forEach(element => {
-            element.innerHTML = `<img height='29' width='140' src='${image}'>`;
+            element.innerHTML = `<img height='${h}' width='${w}' src='${image}'>`;
         });
     }
 
-    updateImage('.GSRImage1', GSRImage);
-    updateImage('.GSRImage2', GSRImage);
-    updateImage('.AUDUSDImage1', AUDUSDImage);
-    updateImage('.AUDUSDImage2', AUDUSDImage);
-    updateImage('.GOLDImage1', GOLDImage);
-    updateImage('.GOLDImage2', GOLDImage);
-    updateImage('.SILVERImage1', SILVERImage);
-    updateImage('.SILVERImage2', SILVERImage);
+    updateImage('.GSRImage1', GSRImage, '29', '140');
+    updateImage('.AUDUSDImage1', AUDUSDImage, '29', '140');
+    updateImage('.AUDUSDImage2', AUDUSDImage, '29', '140');
+    updateImage('.GOLDImage1', GOLDImage, '29', '140');
+    updateImage('.GOLDImage2', GOLDImage, '29', '140');
+    updateImage('.SILVERImage1', SILVERImage, '29', '140');
+    updateImage('.SILVERImage2', SILVERImage, '29', '140');
+    updateImage('.AUImage', AUImage, '30', '30');
+    updateImage('.AGImage', AGImage, '30', '30');
+    updateImage('.BTCImage', BTCImage, '30', '30');
+    updateImage('.ETHImage', ETHImage, '30', '30');
+
+
 
     // Hide/show containers based on cookie
     const token = getCookie('apiToken');
