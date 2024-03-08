@@ -164,6 +164,15 @@ function priceSheetCalcs(priceListData, historicalData) {
     const goldChangeUSpc = (goldChangeUS / (goldOldSpotAU / audPrice)) * 100;
     const silverChangeUSpc = (silverChangeUS / (silverOldSpotAU / audPrice)) * 100;
 
+    console.log("goldChangeAU ", goldChangeAU);
+    console.log("silverChangeAU ", silverChangeAU);
+    console.log("goldChangeUS ", goldChangeUS);
+    console.log("silverChangeUS ", silverChangeUS);
+    console.log("goldChangeAUpc ", goldChangeAUpc);
+    console.log("silverChangeAUpc ", silverChangeAUpc);
+    console.log("goldChangeUSpc ", goldChangeUSpc);
+    console.log("silverChangeUSpc ", silverChangeUSpc);
+
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
     // Update individual elements by class name
