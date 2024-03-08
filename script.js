@@ -194,21 +194,24 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
         const element = document.querySelector(selector);
-        const directionUS = changeUS > 0 ? "Up" : changeUS < 0 ? "Down" : "No change";
-        const directionAU = changeAU > 0 ? "Up" : changeAU < 0 ? "Down" : "No change";
-        const classToAdd = changeUS === 0 && changeAU === 0 ? "no-change" : changeUS >= 0 && changeAU >= 0 ? "positive-change" : "negative-change";
 
-        // Reset classes
+        // Round changes to two decimals
+        const roundedChangeUS = parseFloat(changeUS.toFixed(2));
+        const roundedChangeAU = parseFloat(changeAU.toFixed(2));
+        const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(2));
+        const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(2));
+
+        const directionUS = roundedChangeUS > 0 ? "Up" : roundedChangeUS < 0 ? "Down" : "No change";
+        const directionAU = roundedChangeAU > 0 ? "Up" : roundedChangeAU < 0 ? "Down" : "No change";
+        const classToAdd = roundedChangeUS === 0 && roundedChangeAU === 0 ? "no-change" : roundedChangeUS > 0 || roundedChangeAU > 0 ? "positive-change" : "negative-change";
+
         element.classList.remove("positive-change", "negative-change", "no-change");
 
-        // Add the appropriate class
         element.classList.add(classToAdd);
 
-        // Format the change text, including handling for no change
-        const changeTextUS = changeUS === 0 ? "" : ` (${directionUS} US$${Math.abs(changeUS).toFixed(2)} / ${Math.abs(changeUSpc).toFixed(2)}%)`;
-        const changeTextAU = changeAU === 0 ? "" : ` (${directionAU} AU$${Math.abs(changeAU).toFixed(2)} / ${Math.abs(changeAUpc).toFixed(2)}%)`;
+        const changeTextUS = directionUS === "No change" ? " (No change)" : ` (${directionUS} US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%)`;
+        const changeTextAU = directionAU === "No change" ? " (No change)" : ` (${directionAU} AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%)`;
 
-        // Update the textContent with the new values and directions
         element.textContent = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
     }
 }
