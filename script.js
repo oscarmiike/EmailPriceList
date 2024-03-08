@@ -226,12 +226,12 @@ function priceSheetCalcs(priceListData, historicalData) {
         // Update US Price
         document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US$${spotPriceUS.toFixed(2)}`;
         // Update US Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-us-${suffix}`).textContent = `<img height="20" width="20" src="${directionUS}">`;
+        document.querySelector(`.${metalType}-dir-us-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionUS}">`;
         document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US$${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%`;
         // Update AU Price
         document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU$${spotPriceAU.toFixed(2)}`;
         // Update AU Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-au-${suffix}`).textContent = `<img height="20" width="20" src="${directionAU}">`;
+        document.querySelector(`.${metalType}-dir-au-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionAU}">`;
         document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU$${Math.abs(changeAU.toFixed(2))} / ${Math.abs(changeAUpc.toFixed(2))}%`;
     }
 }
