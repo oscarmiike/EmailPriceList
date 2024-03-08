@@ -12,9 +12,9 @@ body {
     background-attachment: fixed;
 }
 
-/* table, th, td {
+table, th, td {
     border: 1px solid black;
-} */
+}
 
 .titleContainer {
     width: 100%;

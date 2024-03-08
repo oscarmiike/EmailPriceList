@@ -208,12 +208,12 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     document.querySelector(".gold-silver-ratio-bullion").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-bullion").textContent = `${audPrice.toFixed(4)}`;
-    document.querySelector(".gold-price-bullion").textContent = `$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
-    document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
+    document.querySelector(".gold-price-bullion").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
+    document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
 
 
-    updatePriceChangeElement(".gold-price-bullion", goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
-    updatePriceChangeElement(".silver-price-bullion", silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
+    updatePriceChangeElement(".gold-change-bullion", goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
+    updatePriceChangeElement(".silver-change-bullion", silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
 
     function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
         const element = document.querySelector(selector);
