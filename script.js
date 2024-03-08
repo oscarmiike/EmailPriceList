@@ -5,16 +5,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
 
-    if (!token) {
-        fetchContainer.style.display = 'none';
-        assetContainer.style.display = 'none';
+    const dev = 1;
+
+    if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
-    } else {
-        inputGroup.style.display = 'none';
-        helpContainer.style.display = 'none';
         fetchContainer.style.display = 'flex';
         assetContainer.style.display = 'flex';
+    } else {
+        if (!token) {
+            fetchContainer.style.display = 'none';
+            assetContainer.style.display = 'none';
+            inputGroup.style.display = 'flex';
+            helpContainer.style.display = 'flex';
+        } else {
+            inputGroup.style.display = 'none';
+            helpContainer.style.display = 'none';
+            fetchContainer.style.display = 'flex';
+            assetContainer.style.display = 'flex';
+        }
     }
 
     // function checkWindowSize() {
@@ -175,14 +184,11 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
-    // Update individual elements by class name
-    document.querySelector(".gold-silver-ratio").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
-    document.querySelector(".aud-usd-rate").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
-    
-    // Dynamically update the text content for gold and silver prices with calculated changes
-    document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
-    document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
-    
+    document.querySelector(".gold-silver-ratio-bullion").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
+    document.querySelector(".aud-usd-rate-bullion").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
+    document.querySelector(".gold-price-bullion").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
+    document.querySelector(".silver-price-bullion").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
+
 }
 
 
