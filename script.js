@@ -119,7 +119,7 @@ function fetch() {
         })
     ])
     .then(([priceListData, historicalData]) => {
-        priceSheetCalcs(priceListData, historicalData);
+        //priceSheetCalcs(priceListData, historicalData);
         console.log("priceListData: ", priceListData);
         console.log("historicalData: ", historicalData);
         fadeIn(refreshedMessage, () => {
