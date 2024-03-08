@@ -89,39 +89,39 @@ function saveToken() {
 
 function fetchCombinedData() {
     const token = getCookie('apiToken');
-  
+
     return Promise.all([
-      fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      }),
-      fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      }),
+        fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }),
+        fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }),
     ])
-      .then(responses => Promise.all(responses.map(response => response.json())))
-      .then(([priceListData, historicalData]) => {
-        priceSheetCalcs(priceListData, historicalData);
-        console.log(priceListData, historicalData);
-        fadeIn(refreshedMessage, () => {
-          setTimeout(() => {
-            fadeOut(refreshedMessage);
-          }, 2000);
+        .then(responses => Promise.all(responses.map(response => response.json())))
+        .then(([priceListData, historicalData]) => {
+            priceSheetCalcs(priceListData, historicalData);
+            console.log(priceListData, historicalData);
+            fadeIn(refreshedMessage, () => {
+                setTimeout(() => {
+                    fadeOut(refreshedMessage);
+                }, 2000);
+            });
+            console.log(priceListData, historicalData);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
         });
-        console.log(priceListData, historicalData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
-      });
-  }
+}
 
 function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceAU = 0;
@@ -131,10 +131,6 @@ function priceSheetCalcs(priceListData, historicalData) {
     let audPrice = 0;
     let goldOldSpotAU = 0;
     let silverOldSpotAU = 0;
-    let goldChangeAU = 0;
-    let silverChangeAU = 0;
-    let goldChangeUS = 0;
-    let silverChangeUS = 0;
 
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
@@ -159,16 +155,25 @@ function priceSheetCalcs(priceListData, historicalData) {
         })
     }
 
-    goldChangeAU = goldSpotPriceAU - goldOldSpotAU;
-    console.log(goldChangeAU);
+    const goldChangeAU = goldSpotPriceAU - goldOldSpotAU;
+    const silverChangeAU = silverSpotPriceAU - silverOldSpotAU;
+    const goldChangeUS = (goldSpotPriceUS * audPrice) - goldOldSpotAU;
+    const silverChangeUS = (silverSpotPriceUS * audPrice) - silverOldSpotAU;
+    const goldChangeAUperc = (goldChangeAU / goldOldSpotAU) * 100;
+    const silverChangeAUpc = (silverChangeAU / silverOldSpotAU) * 100;
+    const goldChangeUSpc = (goldChangeUS / (goldOldSpotAU / audPrice)) * 100;
+    const silverChangeUSpc = (silverChangeUS / (silverOldSpotAU / audPrice)) * 100;
 
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
     // Update individual elements by class name
     document.querySelector(".gold-silver-ratio").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
-    document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$21 / 0.98%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$4 / 0.12%)`;
-    document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$21 / 0.98%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$4 / 0.12%)`;
+    
+    // Dynamically update the text content for gold and silver prices with calculated changes
+    document.querySelector(".gold-price").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
+    document.querySelector(".silver-price").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
+    
 }
 
 
