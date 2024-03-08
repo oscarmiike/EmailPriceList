@@ -178,6 +178,34 @@ input[type="text"]:hover {
     box-shadow: 0 0 6px #ecd282;
 }
 
+@keyframes dotFade {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.dot {
+    display: inline-block;
+    margin: 0 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    animation: dotFade 1.4s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.5s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.25s;
+}
+
+/* Adjust the button for the loading state */
+.get-btn.loading {
+    pointer-events: none; /* Disables interaction */
+    width: 96px; /* Adjust based on your button's default size */
+}
 
 
 .btn {

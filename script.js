@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+
     // function checkWindowSize() {
     //     if (window.innerWidth < 1000) {
     //         document.getElementById("warningMessage").style.display = "inline";
@@ -101,6 +102,10 @@ function saveToken() {
 
 
 function fetchCombinedData() {
+    const btn = document.querySelector('.get-btn');
+    btn.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>'; // Add dots
+    btn.classList.add('loading'); // Adjust the button style for loading
+
     const token = getCookie('apiToken');
 
     return Promise.all([
@@ -123,18 +128,21 @@ function fetchCombinedData() {
         .then(([priceListData, historicalData]) => {
             priceSheetCalcs(priceListData, historicalData);
             console.log(priceListData, historicalData);
-            fadeIn(refreshedMessage, () => {
-                setTimeout(() => {
-                    fadeOut(refreshedMessage);
-                }, 2000);
-            });
-            console.log(priceListData, historicalData);
+
+            // Reset button text after the operations are done
+            btn.innerHTML = 'Fetch Prices';
+            btn.classList.remove('loading');
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
+            document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
+
+            // Reset button text in case of error too
+            btn.innerHTML = 'Fetch Prices';
+            btn.classList.remove('loading');
         });
 }
+
 
 function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceAU = 0;
