@@ -213,8 +213,8 @@ function priceSheetCalcs(priceListData, historicalData) {
 
         element.classList.add(classToAdd);
 
-        const changeTextUS = directionUS === "No change" ? " (No change)" : ` (${directionUS} <img src="${base64ImageUp}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%)`;
-        const changeTextAU = directionAU === "No change" ? " (No change)" : ` (${directionAU} <img src="${base64ImageDown}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%)`;
+        const changeTextUS = directionUS === "No change" ? " (No change)" : ` (${directionUS} <img height="10" width="10" src="${base64ImageUp}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%)`;
+        const changeTextAU = directionAU === "No change" ? " (No change)" : ` (${directionAU} <img height="10" width="10" src="${base64ImageDown}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%)`;
 
         element.innerHTML = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
     }
