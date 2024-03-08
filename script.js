@@ -199,10 +199,10 @@ function priceSheetCalcs(priceListData, historicalData) {
     function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
         const element = document.querySelector(selector);
         // Round changes to two decimals
-        const roundedChangeUS = parseFloat(changeUS.toFixed(2));
-        const roundedChangeAU = parseFloat(changeAU.toFixed(2));
-        const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(2));
-        const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(2));
+        const roundedChangeUS = parseFloat(changeUS.toFixed(8));
+        const roundedChangeAU = parseFloat(changeAU.toFixed(8));
+        const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(8));
+        const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(8));
 
         const directionUS = roundedChangeUS > 0 ? "Up" : roundedChangeUS < 0 ? "Down" : "No change";
         const directionAU = roundedChangeAU > 0 ? "Up" : roundedChangeAU < 0 ? "Down" : "No change";
