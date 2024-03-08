@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
 
-    let dev = 1;
+    let dev = 0;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
