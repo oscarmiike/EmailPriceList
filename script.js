@@ -224,20 +224,19 @@ function priceSheetCalcs(priceListData, historicalData) {
         const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(2));
         const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(2));
 
-        const directionUS = roundedChangeUS > 0 ? upArrow : roundedChangeUS < 0 ? dnArrow : "-";
-        const directionAU = roundedChangeAU > 0 ? upArrow : roundedChangeAU < 0 ? dnArrow : "-";
+        const directionUS = roundedChangeUS > 0 ? "↑" : roundedChangeUS < 0 ? "↓" : "-";
+        const directionAU = roundedChangeAU > 0 ? "↑" : roundedChangeAU < 0 ? "↓" : "-";
         const classToAdd = roundedChangeUS === 0 && roundedChangeAU === 0 ? "no-change" : roundedChangeUS > 0 || roundedChangeAU > 0 ? "positive-change" : "negative-change";
 
         element.classList.remove("positive-change", "negative-change", "no-change");
 
         element.classList.add(classToAdd);
 
-        const changeTextUS = directionUS === "-" ? " (-)" : `   <img height="20" width="20" style="vertical-align: middle;" src="${directionUS}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%`;
+        const changeTextUS = directionUS === "-" ? " (-)" : `   <img height="20" width="20" src="${directionUS}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%`;
         const changeTextAU = directionAU === "-" ? " (-)" : `   <img height="20" width="20" src="${directionAU}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%`;
 
         element.innerHTML = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
     }
-
 }
 
 function displayPriceList(data) {
