@@ -213,10 +213,10 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
-    document.querySelector(".gold-silver-ratio-bullion").textContent = `${GSR.toFixed(2)}`;
-    document.querySelector(".aud-usd-rate-bullion").textContent = `${audPrice.toFixed(4)}`;
-    document.querySelector(".gold-price-bullion").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
-    document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
+    document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
+    document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
+    document.querySelector(".gold-price-b").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
+    document.querySelector(".silver-price-b").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
 
 
     updateMetalPrices('gold', 'b', goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
