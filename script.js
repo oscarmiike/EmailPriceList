@@ -17,19 +17,17 @@ document.addEventListener('DOMContentLoaded', function () {
         assetContainer.style.display = 'flex';
     }
 
-    function checkWindowSize() {
-        if (window.innerWidth < 1000) {
-            document.getElementById("warningMessage").style.display = "inline";
-        } else {
-            document.getElementById("warningMessage").style.display = "none";
-        }
-    }
+    // function checkWindowSize() {
+    //     if (window.innerWidth < 1000) {
+    //         document.getElementById("warningMessage").style.display = "inline";
+    //     } else {
+    //         document.getElementById("warningMessage").style.display = "none";
+    //     }
+    // }
 
-    checkWindowSize();
-    window.onresize = checkWindowSize;
+    // checkWindowSize();
+    // window.onresize = checkWindowSize;
 });
-
-
 
 
 function fadeIn(element, callback = () => { }) {
@@ -131,6 +129,12 @@ function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceUS = 0;
     let silverSpotPriceUS = 0;
     let audPrice = 0;
+    let goldOldSpotAU = 0;
+    let silverOldSpotAU = 0;
+    let goldChangeAU = 0;
+    let silverChangeAU = 0;
+    let goldChangeUS = 0;
+    let silverChangeUS = 0;
 
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
@@ -144,6 +148,19 @@ function priceSheetCalcs(priceListData, historicalData) {
             }
         });
     }
+
+    if (historicalData && Array.isArray(historicalData)) {
+        historicalData.forEach(item => {
+            if (item.assetCode === "XAU") {
+                goldOldSpotAU = item.spot;
+            } else if (item.assetCode === "XAG") {
+                silverOldSpotAU = item.spot;
+            }
+        })
+    }
+
+    goldChangeAU = goldSpotPriceAU - goldOldSpotAU;
+    console.log(goldChangeAU);
 
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
