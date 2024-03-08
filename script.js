@@ -242,23 +242,15 @@ function priceSheetCalcs(priceListData, historicalData) {
     const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, audPrice);
     const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, audPrice);
 
-    console.log(xauDelta);
-    console.log(xagDelta);
-    console.log(ausDelta);
-    console.log(agsDelta);
-    console.log(btcDelta);
-    console.log(ethDelta);
-
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
 
-    updatePrices('gold', 'b', xauDelta.spotPriceUS, xauDelta.changeUS, xauDelta.changeUSpc, xauDelta.spotPriceAU, xauDelta.changeAU, xauDelta.changeAUpc);
-    updatePrices('silver', 'b', xagDelta.spotPriceUS, xagDelta.changeUS, xagDelta.changeUSpc, xagDelta.spotPriceAU, xagDelta.changeAU, xagDelta.changeAUpc);
-    updatePrices('aus', 'd', ausDelta.spotPriceUS, ausDelta.changeUS, ausDelta.changeUSpc, ausDelta.spotPriceAU, ausDelta.changeAU, ausDelta.changeAUpc);
-    updatePrices('ags', 'd', agsDelta.spotPriceUS, agsDelta.changeUS, agsDelta.changeUSpc, agsDelta.spotPriceAU, agsDelta.changeAU, agsDelta.changeAUpc);
-    updatePrices('btc', 'd', btcDelta.spotPriceUS, btcDelta.changeUS, btcDelta.changeUSpc, btcDelta.spotPriceAU, btcDelta.changeAU, btcDelta.changeAUpc);
-    updatePrices('eth', 'd', ethDelta.spotPriceUS, ethDelta.changeUS, ethDelta.changeUSpc, ethDelta.spotPriceAU, ethDelta.changeAU, ethDelta.changeAUpc);
-
+    updatePrices('gold', 'b', xauSpotUS, xauDelta.changeUS, xauDelta.changeUSpc, xauSpotAU, xauDelta.changeAU, xauDelta.changeAUpc);
+    updatePrices('silver', 'b', xagSpotUS, xagDelta.changeUS, xagDelta.changeUSpc, xagSpotAU, xagDelta.changeAU, xagDelta.changeAUpc);
+    updatePrices('aus', 'd', ausSpotUS, ausDelta.changeUS, ausDelta.changeUSpc, ausSpotAU, ausDelta.changeAU, ausDelta.changeAUpc);
+    updatePrices('ags', 'd', agsSpotUS, agsDelta.changeUS, agsDelta.changeUSpc, agsSpotAU, agsDelta.changeAU, agsDelta.changeAUpc);
+    updatePrices('btc', 'd', btcSpotUS, btcDelta.changeUS, btcDelta.changeUSpc, btcSpotAU, btcDelta.changeAU, btcDelta.changeAUpc);
+    updatePrices('eth', 'd', ethSpotUS, ethDelta.changeUS, ethDelta.changeUSpc, ethSpotAU, ethDelta.changeAU, ethDelta.changeAUpc);
 
     function updatePrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
         const directionUS = changeUS > 0 ? upArrow : changeUS < 0 ? dnArrow : "No Change";
