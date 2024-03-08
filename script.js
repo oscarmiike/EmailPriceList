@@ -157,7 +157,6 @@ function fetchCombinedData() {
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
         });
 }
 
