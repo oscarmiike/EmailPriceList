@@ -159,7 +159,7 @@ function priceSheetCalcs(priceListData, historicalData) {
     const silverChangeAU = silverSpotPriceAU - silverOldSpotAU;
     const goldChangeUS = (goldSpotPriceUS * audPrice) - goldOldSpotAU;
     const silverChangeUS = (silverSpotPriceUS * audPrice) - silverOldSpotAU;
-    const goldChangeAUperc = (goldChangeAU / goldOldSpotAU) * 100;
+    const goldChangeAUpc = (goldChangeAU / goldOldSpotAU) * 100;
     const silverChangeAUpc = (silverChangeAU / silverOldSpotAU) * 100;
     const goldChangeUSpc = (goldChangeUS / (goldOldSpotAU / audPrice)) * 100;
     const silverChangeUSpc = (silverChangeUS / (silverOldSpotAU / audPrice)) * 100;
