@@ -189,33 +189,35 @@ function priceSheetCalcs(priceListData, historicalData) {
     document.querySelector(".gold-price-bullion").textContent = `$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
     document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
 
+    // base64 images up/down arrow
+    const base64ImageUp = 'data:image/svg;base64,77u/PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCgk8cGF0aCBkPSJNMTQuOTI4NSA1LjVIMjEuMjE0MlYxMS43ODU3IiBzdHJva2U9IiM2MjdFNzciIHN0cm9rZS13aWR0aD0iMS41NzE0MyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPg0KCTxwYXRoIGQ9Ik0yMS4yMTQyIDUuNUwxMi4zMzU2IDE0LjM3ODZDMTIuMTg4OCAxNC41MjI1IDExLjk5MTMgMTQuNjAzMiAxMS43ODU2IDE0LjYwMzJDMTEuNTggMTQuNjAzMiAxMS4zODI1IDE0LjUyMjUgMTEuMjM1NiAxNC4zNzg2TDcuNjIxMzYgMTAuNzY0M0M3LjQ3NDQ5IDEwLjYyMDMgNy4yNzcwMiAxMC41Mzk3IDcuMDcxMzYgMTAuNTM5N0M2Ljg2NTcgMTAuNTM5NyA2LjY2ODIzIDEwLjYyMDMgNi41MjEzNiAxMC43NjQzTDAuNzg1NjQ1IDE2LjUiIHN0cm9rZT0iIzYyN0U3NyIgc3Ryb2tlLXdpZHRoPSIxLjU3MTQzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+DQo8L3N2Zz4=';
+    const base64ImageDown = 'data:image/svg;base64,77u/PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCgk8cGF0aCBkPSJNMTQuOTI4NSAxNi41MDAxSDIxLjIxNDJWMTAuMjE0NCIgc3Ryb2tlPSIjQzg2ODY4IiBzdHJva2Utd2lkdGg9IjEuNTcxNDMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PC9wYXRoPg0KCTxwYXRoIGQ9Ik0yMS4yMTQyIDE2LjVMMTIuMzM1NiA3LjYyMTQzQzEyLjE4ODggNy40Nzc0NiAxMS45OTEzIDcuMzk2ODMgMTEuNzg1NiA3LjM5NjgzQzExLjU4IDcuMzk2ODMgMTEuMzgyNSA3LjQ3NzQ2IDExLjIzNTYgNy42MjE0M0w3LjYyMTM2IDExLjIzNTdDNy40NzQ0OSAxMS4zNzk3IDcuMjc3MDIgMTEuNDYwMyA3LjA3MTM2IDExLjQ2MDNDNi44NjU3IDExLjQ2MDMgNi42NjgyMyAxMS4zNzk3IDYuNTIxMzYgMTEuMjM1N0wwLjc4NTY0NSA1LjUiIHN0cm9rZT0iI0M4Njg2OCIgc3Ryb2tlLXdpZHRoPSIxLjU3MTQzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD4NCjwvc3ZnPg==';
+
     updatePriceChangeElement(".gold-price-bullion", goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
     updatePriceChangeElement(".silver-price-bullion", silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
 
     function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
         const element = document.querySelector(selector);
-        const upImage = 'data:image/svg;base64,77u/PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCgk8cGF0aCBkPSJNMTQuOTI4NSA1LjVIMjEuMjE0MlYxMS43ODU3IiBzdHJva2U9IiM2MjdFNzciIHN0cm9rZS13aWR0aD0iMS41NzE0MyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPg0KCTxwYXRoIGQ9Ik0yMS4yMTQyIDUuNUwxMi4zMzU2IDE0LjM3ODZDMTIuMTg4OCAxNC41MjI1IDExLjk5MTMgMTQuNjAzMiAxMS43ODU2IDE0LjYwMzJDMTEuNTggMTQuNjAzMiAxMS4zODI1IDE0LjUyMjUgMTEuMjM1NiAxNC4zNzg2TDcuNjIxMzYgMTAuNzY0M0M3LjQ3NDQ5IDEwLjYyMDMgNy4yNzcwMiAxMC41Mzk3IDcuMDcxMzYgMTAuNTM5N0M2Ljg2NTcgMTAuNTM5NyA2LjY2ODIzIDEwLjYyMDMgNi41MjEzNiAxMC43NjQzTDAuNzg1NjQ1IDE2LjUiIHN0cm9rZT0iIzYyN0U3NyIgc3Ryb2tlLXdpZHRoPSIxLjU3MTQzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+DQo8L3N2Zz4='
-        const dnImage = 'data:image/svg;base64,77u/PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCgk8cGF0aCBkPSJNMTQuOTI4NSAxNi41MDAxSDIxLjIxNDJWMTAuMjE0NCIgc3Ryb2tlPSIjQzg2ODY4IiBzdHJva2Utd2lkdGg9IjEuNTcxNDMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PC9wYXRoPg0KCTxwYXRoIGQ9Ik0yMS4yMTQyIDE2LjVMMTIuMzM1NiA3LjYyMTQzQzEyLjE4ODggNy40Nzc0NiAxMS45OTEzIDcuMzk2ODMgMTEuNzg1NiA3LjM5NjgzQzExLjU4IDcuMzk2ODMgMTEuMzgyNSA3LjQ3NzQ2IDExLjIzNTYgNy42MjE0M0w3LjYyMTM2IDExLjIzNTdDNy40NzQ0OSAxMS4zNzk3IDcuMjc3MDIgMTEuNDYwMyA3LjA3MTM2IDExLjQ2MDNDNi44NjU3IDExLjQ2MDMgNi42NjgyMyAxMS4zNzk3IDYuNTIxMzYgMTEuMjM1N0wwLjc4NTY0NSA1LjUiIHN0cm9rZT0iI0M4Njg2OCIgc3Ryb2tlLXdpZHRoPSIxLjU3MTQzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjwvcGF0aD4NCjwvc3ZnPg=='
-        
         // Round changes to two decimals
         const roundedChangeUS = parseFloat(changeUS.toFixed(2));
         const roundedChangeAU = parseFloat(changeAU.toFixed(2));
         const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(2));
         const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(2));
 
-        const imageUS = roundedChangeUS > 0 ? upImage : roundedChangeUS < 0 ? dnImage : "No change";
-        const imageAU  = roundedChangeAU > 0 ? upImage : roundedChangeAU < 0 ? dnImage : "No change";
+        const directionUS = roundedChangeUS > 0 ? "Up" : roundedChangeUS < 0 ? "Down" : "No change";
+        const directionAU = roundedChangeAU > 0 ? "Up" : roundedChangeAU < 0 ? "Down" : "No change";
         const classToAdd = roundedChangeUS === 0 && roundedChangeAU === 0 ? "no-change" : roundedChangeUS > 0 || roundedChangeAU > 0 ? "positive-change" : "negative-change";
 
         element.classList.remove("positive-change", "negative-change", "no-change");
 
         element.classList.add(classToAdd);
 
-        const changeTextUS = changeUS === 0 ? " (No change)" : ` (<img src="${imageUS}" alt="${changeUS > 0 ? 'Up' : 'Down'}"> US$${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%)`;        
-        const changeTextAU = changeAU === 0 ? " (No change)" : `(<img src="${imageAU}" alt="${changeAU > 0 ? 'Up' : 'Down'}"> AU$${Math.abs(changeAU.toFixed(2))} / ${Math.abs(changeAUpc.toFixed(2))}%)`;
+        const changeTextUS = directionUS === "No change" ? " (No change)" : ` (${directionUS} <img src="${base64ImageUp}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%)`;
+        const changeTextAU = directionAU === "No change" ? " (No change)" : ` (${directionAU} <img src="${base64ImageDown}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%)`;
 
-        element.textContent = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
+        element.innerHTML = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
     }
+
 }
 
 function displayPriceList(data) {
