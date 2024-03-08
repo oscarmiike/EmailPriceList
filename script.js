@@ -129,9 +129,15 @@ function fetchCombinedData() {
             priceSheetCalcs(priceListData, historicalData);
             console.log(priceListData, historicalData);
 
-            // Reset button text after the operations are done
-            btn.innerHTML = 'Fetch Prices';
-            btn.classList.remove('loading');
+            fadeIn(refreshedMessage, () => {
+                setTimeout(() => {
+                    fadeOut(refreshedMessage, () => {
+                        // Reset button to original state after the fadeOut completes
+                        btn.innerHTML = originalText;
+                        btn.disabled = false; // Re-enable the button
+                    });
+                }, 2000); // Display the refreshed message for 2 seconds before fading out
+            });
         })
         .catch(error => {
             console.error('Error:', error);
