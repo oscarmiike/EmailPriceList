@@ -215,8 +215,8 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
-    document.querySelector(".gold-price-b").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
-    document.querySelector(".silver-price-b").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
+    //document.querySelector(".gold-price-b").textContent = `$${goldSpotPriceUS.toFixed(2)}`;
+    //document.querySelector(".silver-price-b").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
 
 
     updateMetalPrices('gold', 'b', goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
