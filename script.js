@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
 
-    const dev = 0;
+    const dev = 1;
 
     if (dev === 1) {
         inputGroup.style.display = 'flex';
@@ -184,13 +184,34 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     const GSR = goldSpotPriceAU / silverSpotPriceAU;
 
-    document.querySelector(".gold-silver-ratio-bullion").textContent = `Gold:Silver Ratio - ${GSR.toFixed(2)}`;
-    document.querySelector(".aud-usd-rate-bullion").textContent = `AUD/USD - ${audPrice.toFixed(4)}`;
-    document.querySelector(".gold-price-bullion").textContent = `Gold - US$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
-    document.querySelector(".silver-price-bullion").textContent = `Silver - US$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
+    document.querySelector(".gold-silver-ratio-bullion").textContent = `${GSR.toFixed(2)}`;
+    document.querySelector(".aud-usd-rate-bullion").textContent = `${audPrice.toFixed(4)}`;
+    document.querySelector(".gold-price-bullion").textContent = `$${goldSpotPriceUS.toFixed(2)} (Up US$${goldChangeUS.toFixed(2)} / ${goldChangeUSpc.toFixed(2)}%) AU$${goldSpotPriceAU.toFixed(2)} (Up AU$${goldChangeAU.toFixed(2)} / ${goldChangeAUpc.toFixed(2)}%)`;
+    document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)} (Up US$${silverChangeUS.toFixed(2)} / ${silverChangeUSpc.toFixed(2)}%) AU$${silverSpotPriceAU.toFixed(2)} (Up AU$${silverChangeAU.toFixed(2)} / ${silverChangeAUpc.toFixed(2)}%)`;
 
+    updatePriceChangeElement(".gold-price-bullion", goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
+    updatePriceChangeElement(".silver-price-bullion", silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
+
+    function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
+        const element = document.querySelector(selector);
+        const directionUS = changeUS > 0 ? "Up" : changeUS < 0 ? "Down" : "No change";
+        const directionAU = changeAU > 0 ? "Up" : changeAU < 0 ? "Down" : "No change";
+        const classToAdd = changeUS === 0 && changeAU === 0 ? "no-change" : changeUS >= 0 && changeAU >= 0 ? "positive-change" : "negative-change";
+
+        // Reset classes
+        element.classList.remove("positive-change", "negative-change", "no-change");
+
+        // Add the appropriate class
+        element.classList.add(classToAdd);
+
+        // Format the change text, including handling for no change
+        const changeTextUS = changeUS === 0 ? "" : ` (${directionUS} US$${Math.abs(changeUS).toFixed(2)} / ${Math.abs(changeUSpc).toFixed(2)}%)`;
+        const changeTextAU = changeAU === 0 ? "" : ` (${directionAU} AU$${Math.abs(changeAU).toFixed(2)} / ${Math.abs(changeAUpc).toFixed(2)}%)`;
+
+        // Update the textContent with the new values and directions
+        element.textContent = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
+    }
 }
-
 
 function displayPriceList(data) {
     const priceListDiv = document.getElementById('price-list');
