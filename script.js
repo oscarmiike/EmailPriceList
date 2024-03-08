@@ -1,11 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Load all the base64 images
+    function updateImage(className, image) {
+        const elements = document.querySelectorAll(className);
+        elements.forEach(element => {
+            element.innerHTML = `<img height='29' width='140' src='${image}'>`;
+        });
+    }
+
+    updateImage('.GSRImage1', GSRImage);
+    updateImage('.GSRImage2', GSRImage); 
+    updateImage('.AUDUSDImage1', AUDUSDImage);
+    updateImage('.AUDUSDImage2', AUDUSDImage);
+    updateImage('.GOLDImage1', GOLDImage);
+    updateImage('.GOLDImage2', GOLDImage);
+    updateImage('.SILVERImage1', SILVERImage);
+    updateImage('.SILVERImage2', SILVERImage);
+
+    // Hide/show containers based on cookie
     const token = getCookie('apiToken');
     const inputGroup = document.querySelector('.input-group');
     const fetchContainer = document.querySelector('.fetch-container');
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
-
-
 
     if (!token) {
         fetchContainer.style.display = 'none';
@@ -20,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-  
+
     // function checkWindowSize() {
     //     if (window.innerWidth < 1000) {
     //         document.getElementById("warningMessage").style.display = "inline";
