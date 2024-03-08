@@ -19,11 +19,6 @@
         <span class="title">
             Asset Price List
         </span>
-        <div class="input-group">
-            <input type="text" id="tokenInput" placeholder="Enter token here">
-            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
         <div class="success-message" id="successMessage">
             Token added successfully
         </div>
@@ -33,8 +28,13 @@
         <div class="copied-message" id="refreshedMessage">
             Asset Prices loaded.
         </div>
+        <div class="input-group">
+            <input type="text" id="tokenInput" placeholder="Enter token here">
+            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
         <div class="fetch-container">
-            <button class="get-btn" onclick="fetchPriceList()">
+            <button class="get-btn" onclick="fetch()">
                 Fetch Prices
             </button>
         </div>
@@ -104,8 +104,7 @@
         </div>
     </div>
 
-    <div id="price-list">
-    </div>
+
 
 
     <div class="helpContainer">
@@ -133,6 +132,13 @@
             </ol>
 
 
+        </div>
+    </div>
+
+    <div class="helpContainer">
+        <div class="warning-message" id="warningMessage">
+            Warning: What you see is what you get. If the text is 'wrapped' below, increase the size of your browser
+            window.
         </div>
     </div>
 

@@ -16,7 +16,20 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchContainer.style.display = 'flex';
         assetContainer.style.display = 'flex';
     }
+
+    function checkWindowSize() {
+        if (window.innerWidth < 1000) {
+            document.getElementById("warningMessage").style.display = "inline";
+        } else {
+            document.getElementById("warningMessage").style.display = "none";
+        }
+    }
+
+    checkWindowSize();
+    window.onresize = checkWindowSize;
 });
+
+
 
 
 function fadeIn(element, callback = () => { }) {
@@ -76,44 +89,61 @@ function saveToken() {
 }
 
 
-function fetchPriceList() {
+function fetch() {
     const token = getCookie('apiToken');
-    fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-        },
-    })
-        .then(response => {
+    
+    Promise.all([
+        fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }),
+        fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }).then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
-        .then(data => {
-            priceSheetCalcs(data);
-            fadeIn(refreshedMessage, () => {
-                setTimeout(() => {
-                    fadeOut(refreshedMessage);
-                }, 2000);
-            });
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
+    ])
+    .then(([priceListData, historicalData]) => {
+        priceSheetCalcs(priceListData, historicalData);
+        console.log("priceListData: ", priceListData);
+        console.log("historicalData: ", historicalData);
+        fadeIn(refreshedMessage, () => {
+            setTimeout(() => {
+                fadeOut(refreshedMessage);
+            }, 2000);
         });
+        console.log(priceListData, historicalData);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
+    });
 }
 
-function priceSheetCalcs(data) {
+
+function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceAU = 0;
     let silverSpotPriceAU = 0;
     let goldSpotPriceUS = 0;
     let silverSpotPriceUS = 0;
     let audPrice = 0;
 
-    if (data && Array.isArray(data)) {
+    if (data && Array.isArray(priceListData)) {
         data.forEach(item => {
             if (item.assetName === "Gold") {
                 audPrice = item.audusd;
@@ -136,12 +166,12 @@ function priceSheetCalcs(data) {
 }
 
 
-function displayPriceList(data) {
+function displayPriceList(priceListData) {
     const priceListDiv = document.getElementById('price-list');
     let html = '<ul>';
 
-    if (data && Array.isArray(data)) {
-        data.forEach(item => {
+    if (priceListData && Array.isArray(priceListData)) {
+        priceListData.forEach(item => {
             html += `<li>${item.assetName}: $${item.spot}</li>`;
         });
     } else {
