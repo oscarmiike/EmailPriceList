@@ -219,24 +219,30 @@ function priceSheetCalcs(priceListData, historicalData) {
     document.querySelector(".silver-price-bullion").textContent = `$${silverSpotPriceUS.toFixed(2)}`;
 
 
-    updateMetalPrices('gold', 'b', goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
-    updateMetalPrices('silver', 'b', silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
+    updatePriceChangeElement(".gold-change-bullion", goldSpotPriceUS, goldChangeUS, goldChangeUSpc, goldSpotPriceAU, goldChangeAU, goldChangeAUpc);
+    updatePriceChangeElement(".silver-change-bullion", silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
 
-    function updateMetalPrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
-        // Determine direction text
-        const directionTextUS = changeUS > 0 ? "Up" : changeUS < 0 ? "Down" : "No Change";
-        const directionTextAU = changeAU > 0 ? "Up" : changeAU < 0 ? "Down" : "No Change";
-    
-        // Update US Price
-        document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US$${spotPriceUS.toFixed(2)}`;
-        // Update US Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-us-${suffix}`).textContent = directionTextUS;
-        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US$${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%`;
-        // Update AU Price
-        document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU$${spotPriceAU.toFixed(2)}`;
-        // Update AU Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-au-${suffix}`).textContent = directionTextAU;
-        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU$${Math.abs(changeAU.toFixed(2))} / ${Math.abs(changeAUpc.toFixed(2))}%`;
+    function updatePriceChangeElement(selector, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
+        const element = document.querySelector(selector);
+
+        // Round changes to two decimals
+        const roundedChangeUS = parseFloat(changeUS.toFixed(2));
+        const roundedChangeAU = parseFloat(changeAU.toFixed(2));
+        const roundedChangeUSpc = parseFloat(changeUSpc.toFixed(2));
+        const roundedChangeAUpc = parseFloat(changeAUpc.toFixed(2));
+
+        const directionUS = roundedChangeUS > 0 ? upArrow : roundedChangeUS < 0 ? dnArrow : "-";
+        const directionAU = roundedChangeAU > 0 ? upArrow : roundedChangeAU < 0 ? dnArrow : "-";
+        const classToAdd = roundedChangeUS === 0 && roundedChangeAU === 0 ? "no-change" : roundedChangeUS > 0 || roundedChangeAU > 0 ? "positive-change" : "negative-change";
+
+        element.classList.remove("positive-change", "negative-change", "no-change");
+
+        element.classList.add(classToAdd);
+
+        const changeTextUS = directionUS === "-" ? " (-)" : `   <img height="20" width="20" src="${directionUS}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%`;
+        const changeTextAU = directionAU === "-" ? " (-)" : `   <img height="20" width="20" src="${directionAU}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%`;
+
+        element.innerHTML = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
     }
 }
 
