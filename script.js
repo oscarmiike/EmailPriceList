@@ -240,15 +240,6 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log(ETHSpotAU);
     console.log(ETHOldSpotAU);
 
-    console.log("goldChangeAU ", goldChangeAU);
-    console.log("silverChangeAU ", silverChangeAU);
-    console.log("goldChangeUS ", goldChangeUS);
-    console.log("silverChangeUS ", silverChangeUS);
-    console.log("goldChangeAUpc ", goldChangeAUpc);
-    console.log("silverChangeAUpc ", silverChangeAUpc);
-    console.log("goldChangeUSpc ", goldChangeUSpc);
-    console.log("silverChangeUSpc ", silverChangeUSpc);
-
     const goldChangeAU = goldSpotAU - goldOldSpotAU;
     const silverChangeAU = silverSpotAU - silverOldSpotAU;
     const goldChangeUS = (goldSpotUS * audPrice) - goldOldSpotAU;
@@ -258,6 +249,15 @@ function priceSheetCalcs(priceListData, historicalData) {
     const goldChangeUSpc = (goldChangeUS / (goldOldSpotAU / audPrice)) * 100;
     const silverChangeUSpc = (silverChangeUS / (silverOldSpotAU / audPrice)) * 100;
     const GSR = goldSpotAU / silverSpotAU;
+
+    console.log("goldChangeAU ", goldChangeAU);
+    console.log("silverChangeAU ", silverChangeAU);
+    console.log("goldChangeUS ", goldChangeUS);
+    console.log("silverChangeUS ", silverChangeUS);
+    console.log("goldChangeAUpc ", goldChangeAUpc);
+    console.log("silverChangeAUpc ", silverChangeAUpc);
+    console.log("goldChangeUSpc ", goldChangeUSpc);
+    console.log("silverChangeUSpc ", silverChangeUSpc);
 
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
