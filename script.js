@@ -232,7 +232,7 @@ function priceSheetCalcs(priceListData, historicalData) {
 
         element.classList.add(classToAdd);
 
-        const changeTextUS = directionUS === "-" ? " (-)" : `   <img height="20" width="20" src="${directionUS}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%`;
+        const changeTextUS = directionUS === "-" ? " (-)" : `   <img height="20" width="20" style="vertical-align: middle;" src="${directionUS}" /> US$${Math.abs(roundedChangeUS)} / ${Math.abs(roundedChangeUSpc)}%`;
         const changeTextAU = directionAU === "-" ? " (-)" : `   <img height="20" width="20" src="${directionAU}" /> AU$${Math.abs(roundedChangeAU)} / ${Math.abs(roundedChangeAUpc)}%`;
 
         element.innerHTML = `$${spotPriceUS.toFixed(2)}${changeTextUS} AU$${spotPriceAU.toFixed(2)}${changeTextAU}`;
