@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-  
+
     // function checkWindowSize() {
     //     if (window.innerWidth < 1000) {
     //         document.getElementById("warningMessage").style.display = "inline";
@@ -103,59 +103,68 @@ function saveToken() {
 
 function fetchCombinedData() {
     const btn = document.querySelector('.get-btn');
-    const originalText = btn.innerHTML; // Store original button text
-  
-    // Add dots and loading style only before Promise.all
-    btn.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-    btn.classList.add('loading');
-  
+    const originalText = btn.innerHTML;
+
+    const startTime = performance.now(); // Record start time
+
+    btn.classList.add('loading'); // Apply loading style immediately
+
     const token = getCookie('apiToken');
-  
+
     return Promise.all([
-      fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      }),
-      fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      }),
+        fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }),
+        fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        }),
     ])
-      .then(responses => Promise.all(responses.map(response => response.json())))
-      .then(([priceListData, historicalData]) => {
-        // Remove dots and loading style when promise resolves
-        btn.innerHTML = originalText;
-        btn.classList.remove('loading');
-  
-        priceSheetCalcs(priceListData, historicalData);
-        console.log(priceListData, historicalData);
-  
-        fadeIn(refreshedMessage, () => {
-          setTimeout(() => {
-            fadeOut(refreshedMessage, () => {
-              // Reset button state after fadeOut completes (optional)
-              btn.disabled = false; // Re-enable the button (if disabled during loading)
+        .then(responses => Promise.all(responses.map(response => response.json())))
+        .then(([priceListData, historicalData]) => {
+            const endTime = performance.now(); // Record end time
+            const elapsedTime = endTime - startTime;
+
+            if (elapsedTime > 50) {
+                // Fade out original text and fade in dots only if slow
+                fadeOut(btn, () => {
+                    btn.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+                    fadeIn(btn); // Fade in dots after fade out completes
+                });
+            } else {
+                // Remove loading style if fast
+                btn.classList.remove('loading');
+            }
+
+            priceSheetCalcs(priceListData, historicalData);
+            console.log(priceListData, historicalData);
+
+            fadeIn(refreshedMessage, () => {
+                setTimeout(() => {
+                    fadeOut(refreshedMessage, () => {
+                        btn.disabled = false; // Re-enable the button
+                    });
+                }, 2000);
             });
-          }, 2000); // Display the refreshed message for 2 seconds before fading out
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
+
+            btn.classList.remove('loading');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
-  
-        // Reset button state on error
-        btn.innerHTML = originalText;
-        btn.classList.remove('loading');
-        btn.disabled = false; // Re-enable the button (if disabled during loading)
-      });
-  }
-  
+}
+
+
 
 function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceAU = 0;
