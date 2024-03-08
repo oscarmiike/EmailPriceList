@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpContainer = document.querySelector('.helpContainer');
     const assetContainer = document.querySelector('.asset-container');
 
-    fetchHistoricalData()
+    fetchCombinedData()
 
     if (!token) {
         fetchContainer.style.display = 'none';
@@ -149,6 +149,43 @@ function fetchHistoricalData() {
             document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
         });
 }
+
+function fetchCombinedData() {
+    const token = getCookie('apiToken');
+  
+    return Promise.all([
+      fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }),
+      fetch('https://dev-api.ainsliebullion.com.au/spot/GetClosestTimestamp', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }),
+    ])
+      .then(responses => Promise.all(responses.map(response => response.json())))
+      .then(([priceListData, historicalData]) => {
+        // Combine or process data as needed before passing to priceSheetCalcs
+        //priceSheetCalcs(priceListData, historicalData);
+        console.log(priceListData, historicalData);
+        fadeIn(refreshedMessage, () => {
+          setTimeout(() => {
+            fadeOut(refreshedMessage);
+          }, 2000);
+        });
+        console.log(priceListData, historicalData);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
+      });
+  }
 
 function priceSheetCalcs(data) {
     let goldSpotPriceAU = 0;
