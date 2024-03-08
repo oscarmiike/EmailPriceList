@@ -220,18 +220,18 @@ function priceSheetCalcs(priceListData, historicalData) {
     updateMetalPrices('silver', 'b', silverSpotPriceUS, silverChangeUS, silverChangeUSpc, silverSpotPriceAU, silverChangeAU, silverChangeAUpc);
 
     function updateMetalPrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
-        const directionTextUS = changeUS > 0 ? upArrow : changeUS < 0 ? dnArrow : "No Change";
-        const directionTextAU = changeAU > 0 ? upArrow : changeAU < 0 ? dnArrow : "No Change";
+        const directionUS = changeUS > 0 ? upArrow : changeUS < 0 ? dnArrow : "No Change";
+        const directionAU = changeAU > 0 ? upArrow : changeAU < 0 ? dnArrow : "No Change";
     
         // Update US Price
         document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US$${spotPriceUS.toFixed(2)}`;
         // Update US Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-us-${suffix}`).textContent = directionTextUS;
+        document.querySelector(`.${metalType}-dir-us-${suffix}`).textContent = `<img src="${directionUS}">`;
         document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US$${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%`;
         // Update AU Price
         document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU$${spotPriceAU.toFixed(2)}`;
         // Update AU Change Direction and Percentage
-        document.querySelector(`.${metalType}-dir-au-${suffix}`).textContent = directionTextAU;
+        document.querySelector(`.${metalType}-dir-au-${suffix}`).textContent = `<img src="${directionAU}">`;
         document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU$${Math.abs(changeAU.toFixed(2))} / ${Math.abs(changeAUpc.toFixed(2))}%`;
     }
 }
