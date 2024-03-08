@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
+  
     // function checkWindowSize() {
     //     if (window.innerWidth < 1000) {
     //         document.getElementById("warningMessage").style.display = "inline";
@@ -102,15 +102,6 @@ function saveToken() {
 
 
 function fetchCombinedData() {
-    const btn = document.querySelector('.get-btn');
-    const originalText = btn.innerHTML;
-
-    // Disable button immediately and add loading style
-    btn.disabled = true;
-    btn.classList.add('loading');
-
-    const startTime = performance.now(); // Record start time
-
     const token = getCookie('apiToken');
 
     return Promise.all([
@@ -131,43 +122,20 @@ function fetchCombinedData() {
     ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(([priceListData, historicalData]) => {
-            const endTime = performance.now(); // Record end time
-            const elapsedTime = endTime - startTime;
-
-            if (elapsedTime > 50) {
-                // Fade out original text and fade in dots only if slow
-                fadeOut(btn, () => {
-                    btn.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-                    fadeIn(btn); // Fade in dots after fade out completes
-                });
-            } else {
-                // Remove loading style if fast
-                btn.classList.remove('loading');
-            }
-
             priceSheetCalcs(priceListData, historicalData);
             console.log(priceListData, historicalData);
-
             fadeIn(refreshedMessage, () => {
                 setTimeout(() => {
-                    fadeOut(refreshedMessage, () => {
-                        btn.disabled = false; // Re-enable the button
-                    });
+                    fadeOut(refreshedMessage);
                 }, 2000);
             });
+            console.log(priceListData, historicalData);
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('price-list').innerHTML = '<p>Error loading price list.</p>';
-
-            btn.classList.remove('loading');
-            btn.innerHTML = originalText;
-            btn.disabled = false;
+            document.getElementById('price-list').innerHTML = '<p style="margin-left: 20px;">Error loading price list.</p>';
         });
 }
-
-
-
 
 function priceSheetCalcs(priceListData, historicalData) {
     let goldSpotPriceAU = 0;
