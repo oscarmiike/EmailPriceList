@@ -139,7 +139,7 @@ function delay(ms) {
 function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
-    const refreshedMessage = document.querySelector('.refreshedMessage'); 
+    const refreshedMessage = document.querySelector('.refreshed-message'); 
     console.log(refreshedMessage)
 
     function showRefreshedMessage() {
