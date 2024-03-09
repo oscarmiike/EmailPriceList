@@ -144,6 +144,16 @@ input[type="text"]:hover {
     border-radius: 0 4px 4px 0;
 }
 
+.cookie-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    background-color: #2b3137;
+    border-radius: 4px;
+    border: 1px solid #464646;
+    color: #cccccc;
+}
+
 .fetch-container {
     display: inline-flex;
     align-items: center;
@@ -178,16 +188,6 @@ input[type="text"]:hover {
 .get-btn:hover {
     outline: none;
     box-shadow: 0 0 6px #ecd282;
-}
-
-.cookie-container {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    background-color: #2b3137;
-    border-radius: 4px;
-    border: 1px solid #464646;
-    color: #cccccc;
 }
 
 .cookie-btn {
