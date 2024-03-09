@@ -291,7 +291,7 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("ethOldSpotAU: ", ethOldSpotAU);
     console.log("ethOldSpotUS: ", ethOldSpotUS);
 
-    function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS, audPrice, usdPrice, audOldPrice, usdOldPrice) {
+    function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
         const changeUS = spotPriceUS - oldSpotPriceUS;
         const changeAUpc = (changeAU / oldSpotPriceAU) * 100;
@@ -301,12 +301,12 @@ function priceSheetCalcs(priceListData, historicalData) {
     }
 
     const GSR = xauSpotAU / xagSpotAU;
-    const xauDelta = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
-    const xagDelta = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
-    const ausDelta = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
-    const agsDelta = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
-    const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
-    const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const xauDelta = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, xauOldSpotUS);
+    const xagDelta = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, xagOldSpotUS);
+    const ausDelta = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, ausOldSpotUS);
+    const agsDelta = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, agsOldSpotUS);
+    const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, btcOldSpotUS);
+    const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, ethOldSpotUS);
 
     console.log("xauDelta: ", xauDelta);
     console.log("xagDelta: ", xagDelta);
