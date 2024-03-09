@@ -1,5 +1,11 @@
 // global variables for price calcs
 let audPrice = 0, audOldPrice = 0, usdPrice = 0, usdOldPrice = 0, xauSpotAU = 0, xagSpotAU = 0, ausSpotAU = 0, agsSpotAU = 0, btcSpotAU = 0, ethSpotAU = 0, xauSpotUS = 0, xagSpotUS = 0, ausSpotUS = 0, agsSpotUS = 0, btcSpotUS = 0, ethSpotUS = 0, xauOldSpotAU = 0, xagOldSpotAU = 0, ausOldSpotAU = 0, agsOldSpotAU = 0, btcOldSpotAU = 0, ethOldSpotAU = 0, xauOldSpotUS = 0, xagOldSpotUS = 0, ausOldSpotUS = 0, agsOldSpotUS = 0, btcOldSpotUS = 0, ethOldSpotUS = 0;
+const token = getCookie('apiToken');
+const inputGroup = document.querySelector('.input-group');
+const fetchContainer = document.querySelector('.fetch-container');
+const helpContainer = document.querySelector('.helpContainer');
+const assetContainer = document.querySelector('.asset-container');
+const cookieContainer = document.querySelector('.cookie-container');
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -21,46 +27,37 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.ETHImage', ETHImage, '30', '30');
     addBase64ImageNextToTitle();
 
-    // Hide/show containers based on cookie
-    const token = getCookie('apiToken');
-    const inputGroup = document.querySelector('.input-group');
-    const fetchContainer = document.querySelector('.fetch-container');
-    const helpContainer = document.querySelector('.helpContainer');
-    const assetContainer = document.querySelector('.asset-container');
-
     let dev = 0;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
         fetchContainer.style.display = 'flex';
         assetContainer.style.display = 'flex';
+        cookieContainer.style.display = 'in-line'
     } else {
         if (!token) {
             fetchContainer.style.display = 'none';
             assetContainer.style.display = 'none';
             inputGroup.style.display = 'flex';
             helpContainer.style.display = 'flex';
+            cookieContainer.style.display = 'none'
         } else {
             inputGroup.style.display = 'none';
             helpContainer.style.display = 'none';
             fetchContainer.style.display = 'flex';
             assetContainer.style.display = 'flex';
+            cookieContainer.style.display = 'none'
         }
     }
-
-
 });
 
 
 function setdev() {
-    const inputGroup = document.querySelector('.input-group');
-    const fetchContainer = document.querySelector('.fetch-container');
-    const helpContainer = document.querySelector('.helpContainer');
-    const assetContainer = document.querySelector('.asset-container');
     inputGroup.style.display = 'flex';
     helpContainer.style.display = 'flex';
     fetchContainer.style.display = 'flex';
     assetContainer.style.display = 'flex';
+    cookieContainer.style.display = 'flex';
 }
 
 
@@ -74,6 +71,11 @@ function getCookie(name) {
     }
     return null;
 }
+
+function deleteCookie() {
+    document.cookie = 'apiToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+}
+
 
 function fadeIn(element, callback = () => { }) {
     element.style.opacity = 0;
@@ -403,5 +405,14 @@ function addBase64ImageNextToTitle() {
         imgElement.style.marginLeft = '10px';
         imgElement.style.marginBottom = '3px';
         titleElement.appendChild(imgElement);
+    }
+}
+
+function addBackgroundToButton() {
+    const button = document.querySelector('.get-btn');
+    if (button) {
+        button.style.backgroundImage = `url('${cookie}')`;
+        button.style.backgroundSize = 'cover'; 
+        button.style.color = '#cccccc'; 
     }
 }
