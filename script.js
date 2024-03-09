@@ -140,7 +140,6 @@ function delay(ms) {
 
 
 function fetchCombinedData() {
-    const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
     const refreshedMessage = document.getElementById('refreshedMessage'); 
 
@@ -422,7 +421,7 @@ function addEmailNextToTitle() {
         const titleElement = document.querySelector('.title');
         
         if (titleElement) {
-            let imgHTML = `<img src="${emailIcon}" alt="Email Icon" style="vertical-align: middle; margin-bottom: 2px; margin-left: 10px;">`;
+            let imgHTML = `<img src="${emailIcon}" alt="Email Icon" style="vertical-align: middle; margin-bottom: 2.5px; margin-left: 10px;">`;
             titleElement.innerHTML += imgHTML;
         }
     } else {
