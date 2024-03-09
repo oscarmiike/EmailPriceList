@@ -229,6 +229,26 @@ function priceSheetCalcs(priceListData, historicalData) {
         })
     }
 
+    console.log("audPrice: ", audPrice);
+    console.log("xauSpotAU: ", xauSpotAU);
+    console.log("xagSpotAU: ", xagSpotAU);
+    console.log("xauSpotUS: ", xauSpotUS);
+    console.log("xagSpotUS: ", xagSpotUS);
+    console.log("xauOldSpotAU: ", xauOldSpotAU);
+    console.log("xagOldSpotAU: ", xagOldSpotAU);
+    console.log("ausSpotUS: ", ausSpotUS);
+    console.log("ausSpotAU: ", ausSpotAU);
+    console.log("ausOldSpotAU: ", ausOldSpotAU);
+    console.log("agsSpotUS: ", agsSpotUS);
+    console.log("agsSpotAU: ", agsSpotAU);
+    console.log("agsOldSpotAU: ", agsOldSpotAU);
+    console.log("btcSpotUS: ", btcSpotUS);
+    console.log("btcSpotAU: ", btcSpotAU);
+    console.log("btcOldSpotAU: ", btcOldSpotAU);
+    console.log("ethSpotUS: ", ethSpotUS);
+    console.log("ethSpotAU: ", ethSpotAU);
+    console.log("ethOldSpotAU: ", ethOldSpotAU);
+
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, audPrice) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
         const changeUS = spotPriceUS - (oldSpotPriceAU * audPrice);
