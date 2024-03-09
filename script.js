@@ -144,7 +144,7 @@ function fetchCombinedData() {
 
     function showRefreshedMessage() {
         refreshedMessage.classList.add('fade-in');
-        refreshedMessage.classList.remove('fade-out');
+        // refreshedMessage.classList.remove('fade-out');
         refreshedMessage.style.display = 'block';
 
         setTimeout(() => {
