@@ -175,19 +175,24 @@ function priceSheetCalcs(priceListData, historicalData) {
     let xagSpotUS = 0;
     let xauOldSpotAU = 0;
     let xagOldSpotAU = 0;
+    let xauOldSpotUS = 0;
+    let xagOldSpotUS = 0;
     let ausSpotUS = 0;
     let ausSpotAU = 0;
     let ausOldSpotAU = 0;
+    let ausOldSpotUS = 0;
     let agsSpotUS = 0;
     let agsSpotAU = 0;
     let agsOldSpotAU = 0;
+    let agsOldSpotUS = 0;
     let btcSpotUS = 0;
     let btcSpotAU = 0;
     let btcOldSpotAU = 0;
+    let btcOldSpotUS = 0;
     let ethSpotUS = 0;
     let ethSpotAU = 0;
     let ethOldSpotAU = 0;
-
+    let ethOldSpotUS = 0;
 
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
@@ -199,7 +204,7 @@ function priceSheetCalcs(priceListData, historicalData) {
                 xauSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "XAG") {
                 xagSpotAU = item.spot;
-                xagSpotUS = item.spot * item.audusd;
+                xagSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "AUS") {
                 ausSpotAU = item.spot;
                 ausSpotUS = item.spot / usdPrice;
@@ -224,16 +229,22 @@ function priceSheetCalcs(priceListData, historicalData) {
                 audOldPrice = item.spot;
             } else if (item.assetCode === "XAU") {
                 xauOldSpotAU = item.spot;
+                xauOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "XAG") {
-                xagOldSpotAU = item.spot / audPrice;
+                xagOldSpotAU = item.spot;
+                xagOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "AUS") {
-                ausOldSpotAU = item.spot / audPrice;
+                ausOldSpotAU = item.spot;
+                ausOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "AGS") {
-                agsOldSpotAU = item.spot / audPrice;
+                agsOldSpotAU = item.spot;
+                agsOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "BTC") {
-                btcOldSpotAU = item.spot / audPrice;
+                agsOldSpotAU = item.spot;
+                btcOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "ETH") {
-                ethOldSpotAU = item.spot / audPrice;
+                ethOldSpotAU = item.spot;
+                ethOldSpotUS = item.spot / usdOldPrice;
             }
         })
     }
@@ -261,22 +272,22 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("ethSpotAU: ", ethSpotAU);
     console.log("ethOldSpotAU: ", ethOldSpotAU);
 
-    function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, audPrice) {
+    function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS, audPrice, usdPrice, audOldPrice, usdOldPrice) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
-        const changeUS = spotPriceUS - (oldSpotPriceAU * audPrice);
+        const changeUS = spotPriceUS - oldSpotPriceUS;
         const changeAUpc = (changeAU / oldSpotPriceAU) * 100;
-        const changeUSpc = (changeUS / (oldSpotPriceAU * audPrice)) * 100;
+        const changeUSpc = (changeUS / oldSpotPriceUS) * 100;
 
         return { changeAU, changeUS, changeAUpc, changeUSpc };
     }
 
     const GSR = xauSpotAU / xagSpotAU;
-    const xauDelta = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, audPrice);
-    const xagDelta = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, audPrice);
-    const ausDelta = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, audPrice);
-    const agsDelta = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, audPrice);
-    const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, audPrice);
-    const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, audPrice);
+    const xauDelta = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const xagDelta = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const ausDelta = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const agsDelta = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
+    const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, audPrice, usdPrice, audOldPrice, usdOldPrice);
 
     console.log("xauDelta: ", xauDelta);
     console.log("xagDelta: ", xagDelta);
