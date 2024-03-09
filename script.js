@@ -231,9 +231,9 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, audPrice) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
-        const changeUS = spotPriceUS - (oldSpotPriceAU / audPrice);
+        const changeUS = spotPriceUS - (oldSpotPriceAU * audPrice);
         const changeAUpc = (changeAU / oldSpotPriceAU) * 100;
-        const changeUSpc = (changeUS / (oldSpotPriceAU / audPrice)) * 100;
+        const changeUSpc = (changeUS / (oldSpotPriceAU * audPrice)) * 100;
 
         return { changeAU, changeUS, changeAUpc, changeUSpc };
     }
