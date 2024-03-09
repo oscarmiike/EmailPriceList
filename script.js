@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.ETHImage', ETHImage, '30', '30');
     addBase64ImageNextToTitle();
 
-    let dev = 0;
+    let dev = 1;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
