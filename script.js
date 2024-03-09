@@ -135,6 +135,8 @@ function saveToken() {
 function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
+    loader.classList.add('fade-in');
+    loader.classList.remove('fade-out');
     loader.style.display = 'inline-block';
 
     return Promise.all([
@@ -157,7 +159,9 @@ function fetchCombinedData() {
         .then(([priceListData, historicalData]) => {
             priceSheetCalcs(priceListData, historicalData);
             console.log(priceListData, historicalData);
-            loader.style.display = 'none';
+            loader.classList.add('fade-out');
+            loader.classList.remove('fade-in');
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
             fadeIn(refreshedMessage, () => {
                 setTimeout(() => {
                     fadeOut(refreshedMessage);
