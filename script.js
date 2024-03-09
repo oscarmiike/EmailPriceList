@@ -219,11 +219,11 @@ function priceSheetCalcs(priceListData, historicalData) {
                 agsSpotAU = item.spot;
                 agsSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "BTC") {
-                btcSpotAU = item.spot;
-                btcSpotUS = item.spot / usdPrice;
+                btcSpotAU = item.spot * usdPrice;
+                btcSpotUS = item.spot;
             } else if (item.assetCode === "ETH") {
-                ethSpotAU = item.spot;
-                ethSpotUS = item.spot / usdPrice;
+                ethSpotAU = item.spot * usdPrice;
+                ethSpotUS = item.spot;
             }
         });
     }
@@ -253,11 +253,11 @@ function priceSheetCalcs(priceListData, historicalData) {
                 agsOldSpotAU = item.spot;
                 agsOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "BTC") {
-                btcOldSpotAU = item.spot;
-                btcOldSpotUS = item.spot / usdOldPrice;
+                btcOldSpotAU = item.spot * usdOldPrice;
+                btcOldSpotUS = item.spot;
             } else if (item.assetCode === "ETH") {
-                ethOldSpotAU = item.spot;
-                ethOldSpotUS = item.spot / usdOldPrice;
+                ethOldSpotAU = item.spot * usdOldPrice;
+                ethOldSpotUS = item.spot;
             }
         })
     }
