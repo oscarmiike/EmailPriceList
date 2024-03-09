@@ -231,7 +231,7 @@ input[type="text"]:hover {
 }
 
 .fade-in {
-    animation: fadeInAnimation 1s forwards;
+    animation: fadeInAnimation 0.5s forwards;
 }
 
 @keyframes fadeOutAnimation {
