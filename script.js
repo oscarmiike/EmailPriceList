@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.AGImage', AGImage, '30', '30');
     addImage('.BTCImage', BTCImage, '30', '30');
     addImage('.ETHImage', ETHImage, '30', '30');
-    setButtonBackground()
+    setButtonBackground();
+    addEmailNextToTitle();
     
     let dev = 0;
     if (dev === 1) {
@@ -416,3 +417,15 @@ function setButtonBackground() {
     }
 }
 
+function addEmailNextToTitle() {
+    if (typeof emailIcon !== 'undefined') {
+        const titleElement = document.querySelector('.title');
+        
+        if (titleElement) {
+            let imgHTML = `<img src="${emailIcon}" alt="Email Icon" style="vertical-align: middle; margin-bottom: 2px; margin-left: 10px;">`;
+            titleElement.innerHTML += imgHTML;
+        }
+    } else {
+        console.error('emailIcon is undefined. Make sure images.js is loaded properly.');
+    }
+}
