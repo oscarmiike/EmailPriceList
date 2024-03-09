@@ -140,6 +140,7 @@ function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
     const refreshedMessage = document.querySelector('.refreshedMessage'); 
+    console.log(refreshedMessage)
 
     function showRefreshedMessage() {
         refreshedMessage.classList.add('fade-in');
