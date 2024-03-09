@@ -139,7 +139,7 @@ function fetchCombinedData() {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
         loader.style.display = 'inline-block';
-    }, 50); // Delay loader display
+    }, 1000); // Delay loader display
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
