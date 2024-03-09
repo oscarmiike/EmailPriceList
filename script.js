@@ -139,26 +139,23 @@ function delay(ms) {
 function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
-    const refreshedMessage = document.querySelector('.refreshedMessage'); // Assuming this selector
+    const refreshedMessage = document.querySelector('.refreshedMessage'); 
 
-    // Function to handle fading in the refreshed message
     function showRefreshedMessage() {
         refreshedMessage.classList.add('fade-in');
         refreshedMessage.classList.remove('fade-out');
         refreshedMessage.style.display = 'block';
 
-        // Ensure refreshed message fades out after being shown
         setTimeout(() => {
             fadeOut(refreshedMessage);
-        }, 2000); // Adjust time as needed
+        }, 2000); 
     }
 
-    // Prepare to show loader if needed
     let loaderTimeout = setTimeout(() => {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
         loader.style.display = 'inline-block';
-    }, 1000); // Delay loader display
+    }, 1000); 
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
@@ -180,28 +177,25 @@ function fetchCombinedData() {
         //.then(responses => Promise.all(responses.map(response => response.json())))
         .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
         .then(([priceListData, historicalData]) => {
-            clearTimeout(loaderTimeout); // Prevent loader from showing if data is returned quickly
+            clearTimeout(loaderTimeout); 
             priceSheetCalcs(priceListData, historicalData);
 
-            // If loader was shown, wait for fade out before showing refreshed message
             if (loader.classList.contains('fade-in')) {
                 loader.classList.add('fade-out');
                 loader.classList.remove('fade-in');
 
-                // Wait for fade-out to complete
                 setTimeout(() => {
                     loader.style.display = 'none';
-                    showRefreshedMessage(); // Show refreshed message after loader has disappeared
-                }, 500); // Match fade-out duration
+                    showRefreshedMessage(); 
+                }, 500); 
             } else {
-                // If loader was not shown, show refreshed message immediately
                 showRefreshedMessage();
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            clearTimeout(loaderTimeout); // Clear loader display timeout on error
-            loader.style.display = 'none'; // Ensure loader is not shown
+            clearTimeout(loaderTimeout); 
+            loader.style.display = 'none'; 
         });
 }
 
