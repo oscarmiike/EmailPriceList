@@ -198,7 +198,14 @@ function priceSheetCalcs(priceListData, historicalData) {
         priceListData.forEach(item => {
             if (item.assetCode === "USDT") {
                 usdPrice = item.spot;
-            } else if (item.assetCode === "XAU") {
+            }
+        });
+    }
+
+
+    if (priceListData && Array.isArray(priceListData)) {
+        priceListData.forEach(item => {
+            if (item.assetCode === "XAU") {
                 audPrice = item.audusd;
                 xauSpotAU = item.spot;
                 xauSpotUS = item.spot / usdPrice;
@@ -227,7 +234,13 @@ function priceSheetCalcs(priceListData, historicalData) {
                 usdOldPrice = item.spot;
             } else if (item.assetCode === "AUD") {
                 audOldPrice = item.spot;
-            } else if (item.assetCode === "XAU") {
+            }
+        })
+    }
+
+    if (historicalData && Array.isArray(historicalData)) {
+        historicalData.forEach(item => {
+            if (item.assetCode === "XAU") {
                 xauOldSpotAU = item.spot;
                 xauOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "XAG") {
