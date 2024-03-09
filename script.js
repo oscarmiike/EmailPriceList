@@ -180,7 +180,8 @@ function fetchCombinedData() {
         .then(([priceListData, historicalData]) => {
             clearTimeout(loaderTimeout); 
             priceSheetCalcs(priceListData, historicalData);
-
+            console.log("priceList: ", priceListData);
+            console.log("historicalData: ", historicalData);
             if (loader.classList.contains('fade-in')) {
                 loader.classList.add('fade-out');
                 loader.classList.remove('fade-in');
