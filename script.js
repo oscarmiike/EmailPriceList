@@ -246,6 +246,13 @@ function priceSheetCalcs(priceListData, historicalData) {
     const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, audPrice);
     const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, audPrice);
 
+    console.log("xauDelta: ", xauDelta);
+    console.log("xagDelta: ", xagDelta);
+    console.log("ausDelta: ", ausDelta);
+    console.log("agsDelta: ", agsDelta);
+    console.log("btcDelta: ", btcDelta);
+    console.log("ethDelta: ", ethDelta);
+
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
 
