@@ -274,15 +274,15 @@ function priceSheetCalcs(priceListData, historicalData) {
         const directionAU = changeAU > 0 ? upArrow : changeAU < 0 ? dnArrow : "No Change";
 
         // Update US Price
-        document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US $${currency.format(spotPriceUS.toFixed(2))}`;
+        document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US ${currency.format(spotPriceUS.toFixed(2))}`;
         // Update US Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-us-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionUS}">`;
-        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US $${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%`;
+        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US ${currency.format(changeUS.toFixed(2))} / ${(changeUSpc.toFixed(2))}%`;
         // Update AU Price
-        document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU $${spotPriceAU.toFixed(2)}`;
+        document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU ${currency.format(spotPriceAU.toFixed(2))}`;
         // Update AU Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-au-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionAU}">`;
-        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU $${Math.abs(changeAU.toFixed(2))} / ${Math.abs(changeAUpc.toFixed(2))}%`;
+        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU ${currency.format(changeAU.toFixed(2))} / ${(changeAUpc.toFixed(2))}%`;
     }
 }
 
