@@ -241,23 +241,23 @@ function priceSheetCalcs(priceListData, historicalData) {
     if (historicalData && Array.isArray(historicalData)) {
         historicalData.forEach(item => {
             if (item.assetCode === "XAU") {
-                xauOldSpotAU = item.spot * usdOldPrice;
-                xauOldSpotUS = item.spot;
+                xauOldSpotAU = item.spot;
+                xauOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "XAG") {
-                xagOldSpotAU = item.spot * usdOldPrice;
-                xagOldSpotUS = item.spot;
+                xagOldSpotAU = item.spot;
+                xagOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "AUS") {
-                ausOldSpotAU = item.spot * usdOldPrice;
-                ausOldSpotUS = item.spot;
+                ausOldSpotAU = item.spot;
+                ausOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "AGS") {
-                agsOldSpotAU = item.spot * usdOldPrice;
-                agsOldSpotUS = item.spot;
+                agsOldSpotAU = item.spot;
+                agsOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "BTC") {
-                btcOldSpotAU = item.spot * usdOldPrice;
-                btcOldSpotUS = item.spot;
+                btcOldSpotAU = item.spot;
+                btcOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "ETH") {
-                ethOldSpotAU = item.spot * usdOldPrice;
-                ethOldSpotUS = item.spot;
+                ethOldSpotAU = item.spot;
+                ethOldSpotUS = item.spot / usdOldPrice;
             }
         })
     }
@@ -301,29 +301,29 @@ function priceSheetCalcs(priceListData, historicalData) {
     }
 
     const GSR = xauSpotAU / xagSpotAU;
-    const xauDelta = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, xauOldSpotUS);
-    const xagDelta = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, xagOldSpotUS);
-    const ausDelta = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, ausOldSpotUS);
-    const agsDelta = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, agsOldSpotUS);
-    const btcDelta = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, btcOldSpotUS);
-    const ethDelta = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, ethOldSpotUS);
+    const xauDeltas = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, xauOldSpotUS);
+    const xagDeltas = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, xagOldSpotUS);
+    const ausDeltas = calculateChanges(ausSpotAU, ausOldSpotAU, ausSpotUS, ausOldSpotUS);
+    const agsDeltas = calculateChanges(agsSpotAU, agsOldSpotAU, agsSpotUS, agsOldSpotUS);
+    const btcDeltas = calculateChanges(btcSpotAU, btcOldSpotAU, btcSpotUS, btcOldSpotUS);
+    const ethDeltas = calculateChanges(ethSpotAU, ethOldSpotAU, ethSpotUS, ethOldSpotUS);
 
-    console.log("xauDelta: ", xauDelta);
-    console.log("xagDelta: ", xagDelta);
-    console.log("ausDelta: ", ausDelta);
-    console.log("agsDelta: ", agsDelta);
-    console.log("btcDelta: ", btcDelta);
-    console.log("ethDelta: ", ethDelta);
+    console.log("xauDeltas: ", xauDeltas);
+    console.log("xagDeltas: ", xagDeltas);
+    console.log("ausDeltas: ", ausDeltas);
+    console.log("agsDeltas: ", agsDeltas);
+    console.log("btcDeltas: ", btcDeltas);
+    console.log("ethDeltas: ", ethDeltas);
 
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
 
-    updatePrices('gold', 'b', xauSpotUS, xauDelta.changeUS, xauDelta.changeUSpc, xauSpotAU, xauDelta.changeAU, xauDelta.changeAUpc);
-    updatePrices('silver', 'b', xagSpotUS, xagDelta.changeUS, xagDelta.changeUSpc, xagSpotAU, xagDelta.changeAU, xagDelta.changeAUpc);
-    updatePrices('aus', 'd', ausSpotUS, ausDelta.changeUS, ausDelta.changeUSpc, ausSpotAU, ausDelta.changeAU, ausDelta.changeAUpc);
-    updatePrices('ags', 'd', agsSpotUS, agsDelta.changeUS, agsDelta.changeUSpc, agsSpotAU, agsDelta.changeAU, agsDelta.changeAUpc);
-    updatePrices('btc', 'd', btcSpotUS, btcDelta.changeUS, btcDelta.changeUSpc, btcSpotAU, btcDelta.changeAU, btcDelta.changeAUpc);
-    updatePrices('eth', 'd', ethSpotUS, ethDelta.changeUS, ethDelta.changeUSpc, ethSpotAU, ethDelta.changeAU, ethDelta.changeAUpc);
+    updatePrices('gold', 'b', xauSpotUS, xauDeltas.changeUS, xauDeltas.changeUSpc, xauSpotAU, xauDeltas.changeAU, xauDeltas.changeAUpc);
+    updatePrices('silver', 'b', xagSpotUS, xagDeltas.changeUS, xagDeltas.changeUSpc, xagSpotAU, xagDeltas.changeAU, xagDeltas.changeAUpc);
+    updatePrices('aus', 'd', ausSpotUS, ausDeltas.changeUS, ausDeltas.changeUSpc, ausSpotAU, ausDeltas.changeAU, ausDeltas.changeAUpc);
+    updatePrices('ags', 'd', agsSpotUS, agsDeltas.changeUS, agsDeltas.changeUSpc, agsSpotAU, agsDeltas.changeAU, agsDeltas.changeAUpc);
+    updatePrices('btc', 'd', btcSpotUS, btcDeltas.changeUS, btcDeltas.changeUSpc, btcSpotAU, btcDeltas.changeAU, btcDeltas.changeAUpc);
+    updatePrices('eth', 'd', ethSpotUS, ethDeltas.changeUS, ethDeltas.changeUSpc, ethSpotAU, ethDeltas.changeAU, ethDeltas.changeAUpc);
 
     function updatePrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
 
