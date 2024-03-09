@@ -219,11 +219,11 @@ function priceSheetCalcs(priceListData, historicalData) {
                 agsSpotAU = item.spot;
                 agsSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "BTC") {
-                btcSpotAU = item.spot * usdPrice;
-                btcSpotUS = item.spot;
+                btcSpotAU = item.spot;
+                btcSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "ETH") {
-                ethSpotAU = item.spot * usdPrice;
-                ethSpotUS = item.spot;
+                ethSpotAU = item.spot;
+                ethSpotUS = item.spot / usdPrice;
             }
         });
     }
