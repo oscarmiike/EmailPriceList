@@ -1,3 +1,10 @@
+// global variables for price calcs
+let audPrice = 0, audOldPrice = 0, usdPrice = 0, usdOldPrice = 0,
+    xauSpotAU = 0, xagSpotAU = 0, ausSpotAU = 0, agsSpotAU = 0, btcSpotAU = 0, ethSpotAU = 0,
+    xauSpotUS = 0, xagSpotUS = 0, ausSpotUS = 0, agsSpotUS = 0, btcSpotUS = 0, ethSpotUS = 0,
+    xauOldSpotAU = 0, xagOldSpotAU = 0, ausOldSpotAU = 0, agsOldSpotAU = 0, btcOldSpotAU = 0, ethOldSpotAU = 0,
+    xauOldSpotUS = 0, xagOldSpotUS = 0, ausOldSpotUS = 0, agsOldSpotUS = 0, btcOldSpotUS = 0, ethOldSpotUS = 0;
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // Load all the base64 images
@@ -165,35 +172,8 @@ function fetchCombinedData() {
 }
 
 function priceSheetCalcs(priceListData, historicalData) {
-    let audPrice = 0;
-    let audOldPrice = 0;
-    let usdPrice = 0;
-    let usdOldPrice = 0;
-    let xauSpotAU = 0;
-    let xagSpotAU = 0;
-    let xauSpotUS = 0;
-    let xagSpotUS = 0;
-    let xauOldSpotAU = 0;
-    let xagOldSpotAU = 0;
-    let xauOldSpotUS = 0;
-    let xagOldSpotUS = 0;
-    let ausSpotUS = 0;
-    let ausSpotAU = 0;
-    let ausOldSpotAU = 0;
-    let ausOldSpotUS = 0;
-    let agsSpotUS = 0;
-    let agsSpotAU = 0;
-    let agsOldSpotAU = 0;
-    let agsOldSpotUS = 0;
-    let btcSpotUS = 0;
-    let btcSpotAU = 0;
-    let btcOldSpotAU = 0;
-    let btcOldSpotUS = 0;
-    let ethSpotUS = 0;
-    let ethSpotAU = 0;
-    let ethOldSpotAU = 0;
-    let ethOldSpotUS = 0;
 
+    // get current USDT price
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
             if (item.assetCode === "USDT") {
@@ -202,7 +182,7 @@ function priceSheetCalcs(priceListData, historicalData) {
         });
     }
 
-
+    // get current price for other assets
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
             if (item.assetCode === "XAU") {
@@ -228,6 +208,7 @@ function priceSheetCalcs(priceListData, historicalData) {
         });
     }
 
+    // get historical USDT and AUD price
     if (historicalData && Array.isArray(historicalData)) {
         historicalData.forEach(item => {
             if (item.assetCode === "USDT") {
@@ -238,6 +219,7 @@ function priceSheetCalcs(priceListData, historicalData) {
         })
     }
 
+    // get historical price for other assets
     if (historicalData && Array.isArray(historicalData)) {
         historicalData.forEach(item => {
             if (item.assetCode === "XAU") {
@@ -291,6 +273,7 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("ethOldSpotAU: ", ethOldSpotAU);
     console.log("ethOldSpotUS: ", ethOldSpotUS);
 
+    // helper function to calculate $ and % change
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
         const changeUS = spotPriceUS - oldSpotPriceUS;
@@ -300,6 +283,7 @@ function priceSheetCalcs(priceListData, historicalData) {
         return { changeAU, changeUS, changeAUpc, changeUSpc };
     }
 
+    // get $ and % change
     const GSR = xauSpotAU / xagSpotAU;
     const xauDeltas = calculateChanges(xauSpotAU, xauOldSpotAU, xauSpotUS, xauOldSpotUS);
     const xagDeltas = calculateChanges(xagSpotAU, xagOldSpotAU, xagSpotUS, xagOldSpotUS);
@@ -315,9 +299,11 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("btcDeltas: ", btcDeltas);
     console.log("ethDeltas: ", ethDeltas);
 
+    // set gsr and aud rate
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
     document.querySelector(".aud-usd-rate-b").textContent = `${audPrice.toFixed(4)}`;
 
+    // update all the table classes with prices
     updatePrices('gold', 'b', xauSpotUS, xauDeltas.changeUS, xauDeltas.changeUSpc, xauSpotAU, xauDeltas.changeAU, xauDeltas.changeAUpc);
     updatePrices('silver', 'b', xagSpotUS, xagDeltas.changeUS, xagDeltas.changeUSpc, xagSpotAU, xagDeltas.changeAU, xagDeltas.changeAUpc);
     updatePrices('aus', 'd', ausSpotUS, ausDeltas.changeUS, ausDeltas.changeUSpc, ausSpotAU, ausDeltas.changeAU, ausDeltas.changeAUpc);
@@ -325,6 +311,7 @@ function priceSheetCalcs(priceListData, historicalData) {
     updatePrices('btc', 'd', btcSpotUS, btcDeltas.changeUS, btcDeltas.changeUSpc, btcSpotAU, btcDeltas.changeAU, btcDeltas.changeAUpc);
     updatePrices('eth', 'd', ethSpotUS, ethDeltas.changeUS, ethDeltas.changeUSpc, ethSpotAU, ethDeltas.changeAU, ethDeltas.changeAUpc);
 
+    // helper function to update correct classes based on asset type
     function updatePrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
 
         let currency = new Intl.NumberFormat('en-AU', {
@@ -339,12 +326,12 @@ function priceSheetCalcs(priceListData, historicalData) {
         document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US ${currency.format(spotPriceUS.toFixed(2))}`;
         // Update US Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-us-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionUS}">`;
-        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US ${currency.format(changeUS.toFixed(2))} / ${(changeUSpc.toFixed(2))}%`;
+        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US ${currency.format(changeUS.toFixed(2))} | ${(changeUSpc.toFixed(2))}%`;
         // Update AU Price
         document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU ${currency.format(spotPriceAU.toFixed(2))}`;
         // Update AU Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-au-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionAU}">`;
-        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU ${currency.format(changeAU.toFixed(2))} / ${(changeAUpc.toFixed(2))}%`;
+        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU ${currency.format(changeAU.toFixed(2))} | ${(changeAUpc.toFixed(2))}%`;
     }
 }
 
