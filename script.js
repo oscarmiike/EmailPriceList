@@ -265,25 +265,31 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("audPrice: ", audPrice);
     console.log("audOldPrice: ", audOldPrice);
     console.log("usdPrice: ", usdPrice);
-    console.log("oldUsdPrice: ", usdOldPrice);
+    console.log("usdOldPrice: ", usdOldPrice);
     console.log("xauSpotAU: ", xauSpotAU);
     console.log("xagSpotAU: ", xagSpotAU);
     console.log("xauSpotUS: ", xauSpotUS);
     console.log("xagSpotUS: ", xagSpotUS);
     console.log("xauOldSpotAU: ", xauOldSpotAU);
     console.log("xagOldSpotAU: ", xagOldSpotAU);
+    console.log("xauOldSpotUS: ", xauOldSpotUS);
+    console.log("xagOldSpotUS: ", xagOldSpotUS);
     console.log("ausSpotUS: ", ausSpotUS);
     console.log("ausSpotAU: ", ausSpotAU);
     console.log("ausOldSpotAU: ", ausOldSpotAU);
+    console.log("ausOldSpotUS: ", ausOldSpotUS);
     console.log("agsSpotUS: ", agsSpotUS);
     console.log("agsSpotAU: ", agsSpotAU);
     console.log("agsOldSpotAU: ", agsOldSpotAU);
+    console.log("agsOldSpotUS: ", agsOldSpotUS);
     console.log("btcSpotUS: ", btcSpotUS);
     console.log("btcSpotAU: ", btcSpotAU);
     console.log("btcOldSpotAU: ", btcOldSpotAU);
+    console.log("btcOldSpotUS: ", btcOldSpotUS);
     console.log("ethSpotUS: ", ethSpotUS);
     console.log("ethSpotAU: ", ethSpotAU);
     console.log("ethOldSpotAU: ", ethOldSpotAU);
+    console.log("ethOldSpotUS: ", ethOldSpotUS);
 
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS, audPrice, usdPrice, audOldPrice, usdOldPrice) {
         const changeAU = spotPriceAU - oldSpotPriceAU;
