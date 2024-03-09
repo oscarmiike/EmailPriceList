@@ -166,6 +166,9 @@ function fetchCombinedData() {
 
 function priceSheetCalcs(priceListData, historicalData) {
     let audPrice = 0;
+    let audOldPrice = 0;
+    let usdPrice = 0;
+    let usdOldPrice = 0;
     let xauSpotAU = 0;
     let xagSpotAU = 0;
     let xauSpotUS = 0;
@@ -188,32 +191,38 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     if (priceListData && Array.isArray(priceListData)) {
         priceListData.forEach(item => {
-            if (item.assetCode === "XAU") {
+            if (item.assetCode === "USDT") {
+                usdPrice = item.spot;
+            } else if (item.assetCode === "XAU") {
                 audPrice = item.audusd;
                 xauSpotAU = item.spot;
-                xauSpotUS = item.spot * item.audusd;
+                xauSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "XAG") {
                 xagSpotAU = item.spot;
                 xagSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "AUS") {
                 ausSpotAU = item.spot;
-                ausSpotUS = item.spot * item.audusd;
+                ausSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "AGS") {
                 agsSpotAU = item.spot;
-                agsSpotUS = item.spot * item.audusd;
+                agsSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "BTC") {
                 btcSpotAU = item.spot;
-                btcSpotUS = item.spot * item.audusd;
+                btcSpotUS = item.spot / usdPrice;
             } else if (item.assetCode === "ETH") {
                 ethSpotAU = item.spot;
-                ethSpotUS = item.spot * item.audusd;
+                ethSpotUS = item.spot / usdPrice;
             }
         });
     }
 
     if (historicalData && Array.isArray(historicalData)) {
         historicalData.forEach(item => {
-            if (item.assetCode === "XAU") {
+            if (item.assetCode === "USDT") {
+                usdOldPrice = item.spot;
+            } else if (item.assetCode === "AUD") {
+                audOldPrice = item.spot;
+            } else if (item.assetCode === "XAU") {
                 xauOldSpotAU = item.spot;
             } else if (item.assetCode === "XAG") {
                 xagOldSpotAU = item.spot / audPrice;
@@ -230,6 +239,9 @@ function priceSheetCalcs(priceListData, historicalData) {
     }
 
     console.log("audPrice: ", audPrice);
+    console.log("audOldPrice: ", audOldPrice);
+    console.log("usdPrice: ", usdPrice);
+    console.log("oldUsdPrice: ", usdOldPrice);
     console.log("xauSpotAU: ", xauSpotAU);
     console.log("xagSpotAU: ", xagSpotAU);
     console.log("xauSpotUS: ", xauSpotUS);
