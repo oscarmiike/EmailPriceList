@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.AGImage', AGImage, '30', '30');
     addImage('.BTCImage', BTCImage, '30', '30');
     addImage('.ETHImage', ETHImage, '30', '30');
-
-
+    addBase64ImageNextToTitle();
 
     // Hide/show containers based on cookie
     const token = getCookie('apiToken');
@@ -51,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
 
 function setdev() {
     const inputGroup = document.querySelector('.input-group');
@@ -389,6 +389,19 @@ function CopyFunction(sectionId) {
     } else {
         console.error('Your browser does not support this copy method.');
     }
+}
 
-
+function addBase64ImageNextToTitle() {
+    const emailIconBase64 = emailIcon;
+    const titleElement = document.querySelector('.title');
+    
+    if (titleElement) {
+        let imgElement = document.createElement('img');
+        imgElement.src = emailIconBase64;
+        imgElement.alt = 'Email Icon';
+        imgElement.style.verticalAlign = 'middle';
+        imgElement.style.marginLeft = '10px';
+        imgElement.style.marginBottom = '3px';
+        titleElement.appendChild(imgElement);
+    }
 }
