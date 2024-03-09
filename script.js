@@ -253,7 +253,7 @@ function priceSheetCalcs(priceListData, historicalData) {
                 agsOldSpotAU = item.spot;
                 agsOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "BTC") {
-                agsOldSpotAU = item.spot;
+                btcOldSpotAU = item.spot;
                 btcOldSpotUS = item.spot / usdOldPrice;
             } else if (item.assetCode === "ETH") {
                 ethOldSpotAU = item.spot;
