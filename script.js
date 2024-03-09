@@ -241,23 +241,23 @@ function priceSheetCalcs(priceListData, historicalData) {
     if (historicalData && Array.isArray(historicalData)) {
         historicalData.forEach(item => {
             if (item.assetCode === "XAU") {
-                xauOldSpotAU = item.spot;
-                xauOldSpotUS = item.spot / usdOldPrice;
+                xauOldSpotAU = item.spot * usdOldPrice;
+                xauOldSpotUS = item.spot;
             } else if (item.assetCode === "XAG") {
-                xagOldSpotAU = item.spot;
-                xagOldSpotUS = item.spot / usdOldPrice;
+                xagOldSpotAU = item.spot * usdOldPrice;
+                xagOldSpotUS = item.spot;
             } else if (item.assetCode === "AUS") {
-                ausOldSpotAU = item.spot;
-                ausOldSpotUS = item.spot / usdOldPrice;
+                ausOldSpotAU = item.spot * usdOldPrice;
+                ausOldSpotUS = item.spot;
             } else if (item.assetCode === "AGS") {
-                agsOldSpotAU = item.spot;
-                agsOldSpotUS = item.spot / usdOldPrice;
+                agsOldSpotAU = item.spot * usdOldPrice;
+                agsOldSpotUS = item.spot;
             } else if (item.assetCode === "BTC") {
-                btcOldSpotAU = item.spot;
-                btcOldSpotUS = item.spot / usdOldPrice;
+                btcOldSpotAU = item.spot * usdOldPrice;
+                btcOldSpotUS = item.spot;
             } else if (item.assetCode === "ETH") {
-                ethOldSpotAU = item.spot;
-                ethOldSpotUS = item.spot / usdOldPrice;
+                ethOldSpotAU = item.spot * usdOldPrice;
+                ethOldSpotUS = item.spot;
             }
         })
     }
@@ -292,10 +292,10 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("ethOldSpotUS: ", ethOldSpotUS);
 
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS, audPrice, usdPrice, audOldPrice, usdOldPrice) {
-        const changeAU = spotPriceAU - (oldSpotPriceAU * usdOldPrice);
-        const changeUS = spotPriceUS - (oldSpotPriceUS * usdOldPrice);
-        const changeAUpc = (changeAU / (oldSpotPriceAU * usdOldPrice)) * 100;
-        const changeUSpc = (changeUS / (oldSpotPriceUS * usdOldPrice)) * 100;
+        const changeAU = spotPriceAU - oldSpotPriceAU;
+        const changeUS = spotPriceUS - oldSpotPriceUS;
+        const changeAUpc = (changeAU / oldSpotPriceAU) * 100;
+        const changeUSpc = (changeUS / oldSpotPriceUS) * 100;
 
         return { changeAU, changeUS, changeAUpc, changeUSpc };
     }
