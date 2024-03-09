@@ -139,6 +139,21 @@ function delay(ms) {
 function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
+    const refreshedMessage = document.querySelector('.refreshedMessage'); // Assuming this selector
+
+    // Function to handle fading in the refreshed message
+    function showRefreshedMessage() {
+        refreshedMessage.classList.add('fade-in');
+        refreshedMessage.classList.remove('fade-out');
+        refreshedMessage.style.display = 'block';
+
+        // Ensure refreshed message fades out after being shown
+        setTimeout(() => {
+            fadeOut(refreshedMessage);
+        }, 2000); // Adjust time as needed
+    }
+
+    // Prepare to show loader if needed
     let loaderTimeout = setTimeout(() => {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
@@ -160,40 +175,36 @@ function fetchCombinedData() {
                 'Authorization': `Bearer ${token}`,
             },
         }),
-        delay(3000)
+        delay(3000) // Artificial delay for testing
     ])
         //.then(responses => Promise.all(responses.map(response => response.json())))
         .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
         .then(([priceListData, historicalData]) => {
-            clearTimeout(loaderTimeout); // Prevent loader from showing if data is returned within 50ms
+            clearTimeout(loaderTimeout); // Prevent loader from showing if data is returned quickly
             priceSheetCalcs(priceListData, historicalData);
-            // Ensure loader fades out if it was displayed
-            if (loader.style.display !== 'none') {
+
+            // If loader was shown, wait for fade out before showing refreshed message
+            if (loader.classList.contains('fade-in')) {
                 loader.classList.add('fade-out');
                 loader.classList.remove('fade-in');
+
+                // Wait for fade-out to complete
                 setTimeout(() => {
                     loader.style.display = 'none';
-                    // Show refreshMessage after loader has disappeared
-                    fadeIn(refreshedMessage, () => {
-                        setTimeout(() => {
-                            fadeOut(refreshedMessage);
-                        }, 2000);
-                    });
-                }, 500); // Match the fade-out duration
+                    showRefreshedMessage(); // Show refreshed message after loader has disappeared
+                }, 500); // Match fade-out duration
             } else {
-                // Show refreshMessage immediately if loader was never displayed
-                fadeIn(refreshedMessage, () => {
-                    setTimeout(() => {
-                        fadeOut(refreshedMessage);
-                    }, 2000);
-                });
+                // If loader was not shown, show refreshed message immediately
+                showRefreshedMessage();
             }
         })
         .catch(error => {
             console.error('Error:', error);
             clearTimeout(loaderTimeout); // Clear loader display timeout on error
+            loader.style.display = 'none'; // Ensure loader is not shown
         });
 }
+
 
 
 function priceSheetCalcs(priceListData, historicalData) {
