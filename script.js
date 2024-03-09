@@ -264,11 +264,17 @@ function priceSheetCalcs(priceListData, historicalData) {
     updatePrices('eth', 'd', ethSpotUS, ethDelta.changeUS, ethDelta.changeUSpc, ethSpotAU, ethDelta.changeAU, ethDelta.changeAUpc);
 
     function updatePrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
+
+        let currency = new Intl.NumberFormat('en-AU', {
+            style: 'currency',
+            currency: 'AUD',
+        });
+
         const directionUS = changeUS > 0 ? upArrow : changeUS < 0 ? dnArrow : "No Change";
         const directionAU = changeAU > 0 ? upArrow : changeAU < 0 ? dnArrow : "No Change";
 
         // Update US Price
-        document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US $${spotPriceUS.toFixed(2)}`;
+        document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US $${currency.format(spotPriceUS.toFixed(2))}`;
         // Update US Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-us-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionUS}">`;
         document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US $${Math.abs(changeUS.toFixed(2))} / ${Math.abs(changeUSpc.toFixed(2))}%`;
