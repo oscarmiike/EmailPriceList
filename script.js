@@ -191,22 +191,22 @@ function priceSheetCalcs(priceListData, historicalData) {
             if (item.assetCode === "XAU") {
                 audPrice = item.audusd;
                 xauSpotAU = item.spot;
-                xauSpotUS = item.spot / item.audusd;
+                xauSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "XAG") {
                 xagSpotAU = item.spot;
-                xagSpotUS = item.spot / item.audusd;
+                xagSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "AUS") {
                 ausSpotAU = item.spot;
-                ausSpotUS = item.spot / item.audusd;
+                ausSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "AGS") {
                 agsSpotAU = item.spot;
-                agsSpotUS = item.spot / item.audusd;
+                agsSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "BTC") {
                 btcSpotAU = item.spot;
-                btcSpotUS = item.spot / item.audusd;
+                btcSpotUS = item.spot * item.audusd;
             } else if (item.assetCode === "ETH") {
                 ethSpotAU = item.spot;
-                ethSpotUS = item.spot / item.audusd;
+                ethSpotUS = item.spot * item.audusd;
             }
         });
     }
