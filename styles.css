@@ -227,7 +227,7 @@ input[type="text"]:hover {
   }
 
 .fade-out {
-    animation: fadeOutAnimation 1s forwards;
+    animation: fadeOutAnimation 0.5s forwards;
 }
 
 .fade-in {
