@@ -181,7 +181,7 @@ function fetchCombinedData() {
                     fadeOut(refreshedMessage);
                 }, 2000); // Ensure refreshedMessage stays visible for 2 seconds before fading out
             });
-        }, 1000); // Wait for the loader's fade-out animation to complete
+        }, 1500); // Wait for the loader's fade-out animation to complete
     })
     .catch(error => {
         console.error('Error:', error);
