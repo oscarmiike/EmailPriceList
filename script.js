@@ -216,15 +216,15 @@ function priceSheetCalcs(priceListData, historicalData) {
             if (item.assetCode === "XAU") {
                 xauOldSpotAU = item.spot;
             } else if (item.assetCode === "XAG") {
-                xagOldSpotAU = item.spot;
+                xagOldSpotAU = item.spot / audPrice;
             } else if (item.assetCode === "AUS") {
-                ausOldSpotAU = item.spot;
+                ausOldSpotAU = item.spot / audPrice;
             } else if (item.assetCode === "AGS") {
-                agsOldSpotAU = item.spot;
+                agsOldSpotAU = item.spot / audPrice;
             } else if (item.assetCode === "BTC") {
-                btcOldSpotAU = item.spot;
+                btcOldSpotAU = item.spot / audPrice;
             } else if (item.assetCode === "ETH") {
-                ethOldSpotAU = item.spot;
+                ethOldSpotAU = item.spot / audPrice;
             }
         })
     }
