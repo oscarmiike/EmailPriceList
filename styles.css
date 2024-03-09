@@ -38,13 +38,16 @@ body {
 
 .asset-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 20px;
     gap: 20px;
 }
 
 .asset-box {
-    flex-basis: 49%;
+    flex-basis: auto;
+    width: 700px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -98,15 +101,6 @@ body {
     opacity: 0;
     font-size: 14px;
 }
-
-
-.warning-message {
-    color: #b90707;
-    margin-right: 20px;
-    margin-left: 20px;
-    font-size: 14px;
-}
-
 
 
 input[type="text"] {

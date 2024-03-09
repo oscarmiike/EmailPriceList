@@ -1,21 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // Load all the base64 images
-    function updateImage(className, image, h, w) {
+    function addImage(className, image, h, w) {
         const elements = document.querySelectorAll(className);
         elements.forEach(element => {
             element.innerHTML = `<img height='${h}' width='${w}' src='${image}'>`;
         });
     }
 
-    updateImage('.GSRImage', GSRImage, '29', '140');
-    updateImage('.AUDUSDImage', AUDUSDImage, '29', '140');
-    updateImage('.GOLDImage', GOLDImage, '29', '140');
-    updateImage('.SILVERImage', SILVERImage, '29', '140');
-    updateImage('.AUImage', AUImage, '30', '30');
-    updateImage('.AGImage', AGImage, '30', '30');
-    updateImage('.BTCImage', BTCImage, '30', '30');
-    updateImage('.ETHImage', ETHImage, '30', '30');
+    addImage('.GSRImage', GSRImage, '29', '140');
+    addImage('.AUDUSDImage', AUDUSDImage, '29', '140');
+    addImage('.GOLDImage', GOLDImage, '29', '140');
+    addImage('.SILVERImage', SILVERImage, '29', '140');
+    addImage('.AUImage', AUImage, '30', '30');
+    addImage('.AGImage', AGImage, '30', '30');
+    addImage('.BTCImage', BTCImage, '30', '30');
+    addImage('.ETHImage', ETHImage, '30', '30');
 
 
 
@@ -46,17 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function checkWindowSize() {
-        if (helpContainer.style.display === "none" && window.innerWidth < 1000) {
-            document.getElementById("warningMessage").style.display = "inline";
-        } else {
-            document.getElementById("warningMessage").style.display = "none";
-        }
-    }
-    
-    checkWindowSize();
-    window.onresize = checkWindowSize;
-    
+
 });
 
 function setdev() {
