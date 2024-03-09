@@ -131,6 +131,10 @@ function saveToken() {
     fetchContainer.style.display = 'none';
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 function fetchCombinedData() {
     const token = getCookie('apiToken');
@@ -156,8 +160,10 @@ function fetchCombinedData() {
                 'Authorization': `Bearer ${token}`,
             },
         }),
+        delay(3000)
     ])
-        .then(responses => Promise.all(responses.map(response => response.json())))
+        //.then(responses => Promise.all(responses.map(response => response.json())))
+        .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
         .then(([priceListData, historicalData]) => {
             clearTimeout(loaderTimeout); // Prevent loader from showing if data is returned within 50ms
             priceSheetCalcs(priceListData, historicalData);
