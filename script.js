@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         helpContainer.style.display = 'flex';
         fetchContainer.style.display = 'flex';
         assetContainer.style.display = 'flex';
-        cookieContainer.style.display = 'in-line'
+        cookieContainer.style.display = 'flex'
     } else {
         if (!token) {
             fetchContainer.style.display = 'none';
