@@ -103,6 +103,7 @@ body {
 .warning-message {
     color: #b90707;
     margin-right: 20px;
+    margin-left: 20px;
     font-size: 14px;
 }
 
@@ -175,53 +176,6 @@ input[type="text"]:hover {
 .get-btn:hover {
     outline: none;
     box-shadow: 0 0 6px #ecd282;
-}
-
-@keyframes dotFade {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-.dot {
-    display: inline-block;
-    margin: 0 2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #ccc;
-    animation: dotFade 1.4s infinite;
-}
-
-.dot:nth-child(1) {
-    animation-delay: -0.5s;
-}
-
-.dot:nth-child(2) {
-    animation-delay: -0.25s;
-}
-
-/* Adjust the button for the loading state */
-.get-btn.loading {
-    pointer-events: none; /* Disables interaction */
-    width: 96px; /* Adjust based on your button's default size */
-}
-
-
-.btn {
-    padding: 10px 20px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 8px;
-}
-
-.fetch-btn {
-    display: block;
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 20px;
 }
 
 .price-list {

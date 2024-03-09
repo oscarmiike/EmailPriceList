@@ -8,13 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    updateImage('.GSRImage1', GSRImage, '29', '140');
-    updateImage('.AUDUSDImage1', AUDUSDImage, '29', '140');
-    updateImage('.AUDUSDImage2', AUDUSDImage, '29', '140');
-    updateImage('.GOLDImage1', GOLDImage, '29', '140');
-    updateImage('.GOLDImage2', GOLDImage, '29', '140');
-    updateImage('.SILVERImage1', SILVERImage, '29', '140');
-    updateImage('.SILVERImage2', SILVERImage, '29', '140');
+    updateImage('.GSRImage', GSRImage, '29', '140');
+    updateImage('.AUDUSDImage', AUDUSDImage, '29', '140');
+    updateImage('.GOLDImage', GOLDImage, '29', '140');
+    updateImage('.SILVERImage', SILVERImage, '29', '140');
     updateImage('.AUImage', AUImage, '30', '30');
     updateImage('.AGImage', AGImage, '30', '30');
     updateImage('.BTCImage', BTCImage, '30', '30');
@@ -49,17 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
-    // function checkWindowSize() {
-    //     if (window.innerWidth < 1000) {
-    //         document.getElementById("warningMessage").style.display = "inline";
-    //     } else {
-    //         document.getElementById("warningMessage").style.display = "none";
-    //     }
-    // }
-
-    // checkWindowSize();
-    // window.onresize = checkWindowSize;
+    function checkWindowSize() {
+        if (helpContainer.style.display === "none" && window.innerWidth < 1000) {
+            document.getElementById("warningMessage").style.display = "inline";
+        } else {
+            document.getElementById("warningMessage").style.display = "none";
+        }
+    }
+    
+    checkWindowSize();
+    window.onresize = checkWindowSize;
+    
 });
 
 function setdev() {
@@ -71,6 +68,18 @@ function setdev() {
     helpContainer.style.display = 'flex';
     fetchContainer.style.display = 'flex';
     assetContainer.style.display = 'flex';
+}
+
+
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if (name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
 }
 
 function fadeIn(element, callback = () => { }) {
@@ -274,33 +283,6 @@ function priceSheetCalcs(priceListData, historicalData) {
     }
 }
 
-function displayPriceList(data) {
-    const priceListDiv = document.getElementById('price-list');
-    let html = '<ul>';
-
-    if (data && Array.isArray(data)) {
-        data.forEach(item => {
-            html += `<li>${item.assetName}: $${item.spot}</li>`;
-        });
-    } else {
-        html += '<li>No data found</li>';
-    }
-
-    html += '</ul>';
-    priceListDiv.innerHTML = html;
-}
-
-
-function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
-    for (let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if (name == cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-    return null;
-}
 
 function CopyFunction(sectionId) {
     const contentToCopy = document.getElementById(sectionId);
@@ -334,4 +316,6 @@ function CopyFunction(sectionId) {
     } else {
         console.error('Your browser does not support this copy method.');
     }
+
+
 }
