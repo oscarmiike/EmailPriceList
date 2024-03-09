@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    addImage('.GSRImage', GSRImage, '29', '140');
-    addImage('.AUDUSDImage', AUDUSDImage, '29', '140');
-    addImage('.GOLDImage', GOLDImage, '29', '140');
-    addImage('.SILVERImage', SILVERImage, '29', '140');
+    addImage('.GSRImage', GSRImage, '35', '35');
+    addImage('.AUDUSDImage', AUDUSDImage, '35', '35');
+    addImage('.GOLDImage', GOLDImage, '35', '35');
+    addImage('.SILVERImage', SILVERImage, '35', '35');
     addImage('.AUImage', AUImage, '30', '30');
     addImage('.AGImage', AGImage, '30', '30');
     addImage('.BTCImage', BTCImage, '30', '30');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setButtonBackground();
     addEmailNextToTitle();
     
-    let dev = 0;
+    let dev = 1;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
