@@ -135,9 +135,11 @@ function saveToken() {
 function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
-    loader.classList.add('fade-in');
-    loader.classList.remove('fade-out');
-    loader.style.display = 'inline-block';
+    let loaderTimeout = setTimeout(() => {
+        loader.classList.add('fade-in');
+        loader.classList.remove('fade-out');
+        loader.style.display = 'inline-block';
+    }, 50); // Delay loader display
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
@@ -157,22 +159,36 @@ function fetchCombinedData() {
     ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(([priceListData, historicalData]) => {
+            clearTimeout(loaderTimeout); // Prevent loader from showing if data is returned within 50ms
             priceSheetCalcs(priceListData, historicalData);
-            console.log(priceListData, historicalData);
-            loader.classList.add('fade-out');
-            loader.classList.remove('fade-in');
-            setTimeout(() => { loader.style.display = 'none'; }, 500);
-            fadeIn(refreshedMessage, () => {
+            // Ensure loader fades out if it was displayed
+            if (loader.style.display !== 'none') {
+                loader.classList.add('fade-out');
+                loader.classList.remove('fade-in');
                 setTimeout(() => {
-                    fadeOut(refreshedMessage);
-                }, 2000);
-            });
-            console.log(priceListData, historicalData);
+                    loader.style.display = 'none';
+                    // Show refreshMessage after loader has disappeared
+                    fadeIn(refreshedMessage, () => {
+                        setTimeout(() => {
+                            fadeOut(refreshedMessage);
+                        }, 2000);
+                    });
+                }, 500); // Match the fade-out duration
+            } else {
+                // Show refreshMessage immediately if loader was never displayed
+                fadeIn(refreshedMessage, () => {
+                    setTimeout(() => {
+                        fadeOut(refreshedMessage);
+                    }, 2000);
+                });
+            }
         })
         .catch(error => {
             console.error('Error:', error);
+            clearTimeout(loaderTimeout); // Clear loader display timeout on error
         });
 }
+
 
 function priceSheetCalcs(priceListData, historicalData) {
 
