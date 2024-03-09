@@ -164,7 +164,7 @@ function fetchCombinedData() {
                 'Authorization': `Bearer ${token}`,
             },
         }),
-        delay(3000) // Your artificial delay for testing
+        delay(3000) 
     ])
     .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
     .then(([priceListData, historicalData]) => {
@@ -177,13 +177,12 @@ function fetchCombinedData() {
         loader.classList.remove('fade-in');
         setTimeout(() => {
             loader.style.display = 'none';
-            // Adjusted to ensure refreshedMessage fades in after loader fades out
             fadeIn(refreshedMessage, () => {
                 setTimeout(() => {
                     fadeOut(refreshedMessage);
-                }, 2000); // Ensure refreshedMessage stays visible for 2 seconds before fading out
+                }, 1000); 
             });
-        }, 1500); // Wait for the loader's fade-out animation to complete
+        }, 1500); 
     })
     .catch(error => {
         console.error('Error:', error);
