@@ -221,3 +221,159 @@ li {
 li:last-child {
     border-bottom: none;
 }
+
+span.gold-silver-ratio-b:empty::before {
+    content: "00.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.aud-usd-rate-b:empty::before {
+    content: "00.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.gold-price-us-b:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.gold-change-us-b:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.gold-price-au-b:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.gold-change-au-b:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.silver-price-us-b:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.silver-change-us-b:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.silver-price-au-b:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.silver-change-au-b:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.aus-price-us-d:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.aus-change-us-d:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.aus-price-au-d:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.aus-change-au-d:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.ags-price-us-d:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.ags-change-us-d:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.ags-price-au-d:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.ags-change-au-d:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.btc-price-us-d:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.btc-change-us-d:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.btc-price-au-d:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.btc-change-au-d:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.eth-price-us-d:empty::before {
+    content: "US$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.eth-change-us-d:empty::before {
+    content: "US$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.eth-price-au-d:empty::before {
+    content: "AU$0000.00";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
+
+span.eth-change-au-d:empty::before {
+    content: "AU$000.00 / 0.00%";
+    color: #aaaaaa7a; 
+    font-style: italic;
+}
