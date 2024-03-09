@@ -57,7 +57,7 @@ function setdev() {
     helpContainer.style.display = 'flex';
     fetchContainer.style.display = 'flex';
     assetContainer.style.display = 'flex';
-    cookieContainer.style.display = 'flex';
+    cookieContainer.style.display = 'flex !important';
 }
 
 
@@ -408,11 +408,13 @@ function addBase64ImageNextToTitle() {
     }
 }
 
-function addBackgroundToButton() {
-    const button = document.querySelector('.get-btn');
-    if (button) {
-        button.style.backgroundImage = `url('${cookie}')`;
+function setButtonBackground() {
+    const button = document.querySelector('.cookie-btn'); 
+
+    if (button && typeof cookieImg !== 'undefined') {
+        button.style.backgroundImage = `url('${cookieImg}')`;
         button.style.backgroundSize = 'cover'; 
-        button.style.color = '#cccccc'; 
     }
 }
+
+document.addEventListener('DOMContentLoaded', setButtonBackground);
