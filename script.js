@@ -292,10 +292,10 @@ function priceSheetCalcs(priceListData, historicalData) {
     console.log("ethOldSpotUS: ", ethOldSpotUS);
 
     function calculateChanges(spotPriceAU, oldSpotPriceAU, spotPriceUS, oldSpotPriceUS, audPrice, usdPrice, audOldPrice, usdOldPrice) {
-        const changeAU = spotPriceAU - oldSpotPriceAU;
-        const changeUS = spotPriceUS - oldSpotPriceUS;
-        const changeAUpc = (changeAU / oldSpotPriceAU) * 100;
-        const changeUSpc = (changeUS / oldSpotPriceUS) * 100;
+        const changeAU = spotPriceAU - (oldSpotPriceAU * usdOldPrice);
+        const changeUS = spotPriceUS - (oldSpotPriceUS * usdOldPrice);
+        const changeAUpc = (changeAU / (oldSpotPriceAU * usdOldPrice)) * 100;
+        const changeUSpc = (changeUS / (oldSpotPriceUS * usdOldPrice)) * 100;
 
         return { changeAU, changeUS, changeAUpc, changeUSpc };
     }
