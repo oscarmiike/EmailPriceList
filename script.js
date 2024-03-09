@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.AGImage', AGImage, '30', '30');
     addImage('.BTCImage', BTCImage, '30', '30');
     addImage('.ETHImage', ETHImage, '30', '30');
-    addBase64ImageNextToTitle();
-
+    setButtonBackground()
+    
     let dev = 0;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function setdev() {
+    cookieContainer.style.display = 'flex';
     inputGroup.style.display = 'flex';
     helpContainer.style.display = 'flex';
     fetchContainer.style.display = 'flex';
     assetContainer.style.display = 'flex';
-    cookieContainer.style.display = 'flex !important';
 }
 
 
@@ -417,4 +417,3 @@ function setButtonBackground() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', setButtonBackground);
