@@ -140,23 +140,12 @@ function fetchCombinedData() {
     const token = getCookie('apiToken');
     const loader = document.querySelector('.lds-grid');
     const refreshedMessage = document.getElementById('refreshedMessage'); 
-    console.log(refreshedMessage)
-
-    function showRefreshedMessage() {
-        refreshedMessage.classList.add('fade-in');
-        // refreshedMessage.classList.remove('fade-out');
-        refreshedMessage.style.display = 'block';
-
-        setTimeout(() => {
-            fadeOut(refreshedMessage);
-        }, 2000); 
-    }
 
     let loaderTimeout = setTimeout(() => {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
         loader.style.display = 'inline-block';
-    }, 1000); 
+    }, 1000); // Keep the loader's delay as originally intended
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
@@ -173,32 +162,32 @@ function fetchCombinedData() {
                 'Authorization': `Bearer ${token}`,
             },
         }),
-        delay(3000) // Artificial delay for testing
+        delay(3000) // Your artificial delay for testing
     ])
-        //.then(responses => Promise.all(responses.map(response => response.json())))
-        .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
-        .then(([priceListData, historicalData]) => {
-            clearTimeout(loaderTimeout); 
-            priceSheetCalcs(priceListData, historicalData);
-            console.log("priceList: ", priceListData);
-            console.log("historicalData: ", historicalData);
-            if (loader.classList.contains('fade-in')) {
-                loader.classList.add('fade-out');
-                loader.classList.remove('fade-in');
-
+    .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
+    .then(([priceListData, historicalData]) => {
+        clearTimeout(loaderTimeout);
+        priceSheetCalcs(priceListData, historicalData);
+        console.log("priceList: ", priceListData);
+        console.log("historicalData: ", historicalData);
+        
+        loader.classList.add('fade-out');
+        loader.classList.remove('fade-in');
+        setTimeout(() => {
+            loader.style.display = 'none';
+            // Adjusted to ensure refreshedMessage fades in after loader fades out
+            fadeIn(refreshedMessage, () => {
                 setTimeout(() => {
-                    loader.style.display = 'none';
-                    showRefreshedMessage(); 
-                }, 500); 
-            } else {
-                showRefreshedMessage();
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            clearTimeout(loaderTimeout); 
-            loader.style.display = 'none'; 
-        });
+                    fadeOut(refreshedMessage);
+                }, 2000); // Ensure refreshedMessage stays visible for 2 seconds before fading out
+            });
+        }, 500); // Wait for the loader's fade-out animation to complete
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        clearTimeout(loaderTimeout);
+        loader.style.display = 'none'; 
+    });
 }
 
 
