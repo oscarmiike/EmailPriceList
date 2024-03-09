@@ -324,7 +324,7 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     // set gsr and aud rate
     document.querySelector(".gold-silver-ratio-b").textContent = `${GSR.toFixed(2)}`;
-    document.querySelector(".aud-price-rate-b").textContent = `${audPrice.toFixed(4)}`;
+    document.querySelector(".aud-price-au-b").textContent = `${audPrice.toFixed(4)}`;
 
     // update all the table classes with prices
     updatePrices('gold', 'b', xauSpotUS, xauDeltas.changeUS, xauDeltas.changeUSpc, xauSpotAU, xauDeltas.changeAU, xauDeltas.changeAUpc);
