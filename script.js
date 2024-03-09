@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.AUDUSDImage', AUDUSDImage, '35', '35');
     addImage('.GOLDImage', GOLDImage, '35', '35');
     addImage('.SILVERImage', SILVERImage, '35', '35');
-    addImage('.AUImage', AUImage, '30', '30');
-    addImage('.AGImage', AGImage, '30', '30');
-    addImage('.BTCImage', BTCImage, '30', '30');
-    addImage('.ETHImage', ETHImage, '30', '30');
+    addImage('.AUImage', AUImage, '35', '35');
+    addImage('.AGImage', AGImage, '35', '35');
+    addImage('.BTCImage', BTCImage, '35', '35');
+    addImage('.ETHImage', ETHImage, '35', '35');
     setButtonBackground();
     addEmailNextToTitle();
     
