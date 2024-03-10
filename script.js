@@ -1,5 +1,6 @@
 // global variables for price calcs
 let audPrice = 0, audOldPrice = 0, usdPrice = 0, usdOldPrice = 0, xauSpotAU = 0, xagSpotAU = 0, ausSpotAU = 0, agsSpotAU = 0, btcSpotAU = 0, ethSpotAU = 0, xauSpotUS = 0, xagSpotUS = 0, ausSpotUS = 0, agsSpotUS = 0, btcSpotUS = 0, ethSpotUS = 0, xauOldSpotAU = 0, xagOldSpotAU = 0, ausOldSpotAU = 0, agsOldSpotAU = 0, btcOldSpotAU = 0, ethOldSpotAU = 0, xauOldSpotUS = 0, xagOldSpotUS = 0, ausOldSpotUS = 0, agsOldSpotUS = 0, btcOldSpotUS = 0, ethOldSpotUS = 0;
+let globalToken = '';
 const token = getCookie('apiToken');
 const inputGroup = document.querySelector('.input-group');
 const fetchContainer = document.querySelector('.fetch-container');
@@ -114,6 +115,7 @@ function saveToken() {
     }
 
     document.cookie = `apiToken=${token};path=/`;
+    globalToken = token;
 
     fadeOut(inputGroup, () => {
         tokenInput.value = '';
@@ -140,6 +142,7 @@ function delay(ms) {
 
 
 function fetchCombinedData() {
+    const token = globalToken;
     const loader = document.querySelector('.lds-grid');
     const refreshedMessage = document.getElementById('refreshedMessage'); 
 
@@ -147,7 +150,7 @@ function fetchCombinedData() {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
         loader.style.display = 'inline-block';
-    }, 1000); // Keep the loader's delay as originally intended
+    }, 1000); 
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
