@@ -115,7 +115,6 @@ function saveToken() {
     }
 
     document.cookie = `apiToken=${token};path=/`;
-    tokenTemp = token;
 
     fadeOut(inputGroup, () => {
         tokenInput.value = '';
@@ -142,6 +141,11 @@ function delay(ms) {
 
 
 function fetchCombinedData() {
+
+    if (!token) {
+        token = tokenTemp;
+    } 
+    
     const loader = document.querySelector('.lds-grid');
     const refreshedMessage = document.getElementById('refreshedMessage'); 
 
