@@ -115,7 +115,7 @@ function saveToken() {
     }
 
     document.cookie = `apiToken=${token};path=/`;
-    tokenInput = token;
+    tokenTemp = token;
 
     fadeOut(inputGroup, () => {
         tokenInput.value = '';
