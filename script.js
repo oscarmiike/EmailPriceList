@@ -100,7 +100,7 @@ function fadeOut(element, callback = () => { }) {
 
 function saveToken() {
     const tokenInput = document.getElementById('tokenInput');
-    const token = tokenInput.value;
+    let token = tokenInput.value;
     const fetchContainer = document.querySelector('.fetch-container');
     const helpContainer = document.querySelector('.helpContainer');
     const inputGroup = document.querySelector('.input-group');
