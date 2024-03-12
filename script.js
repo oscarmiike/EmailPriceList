@@ -10,6 +10,8 @@ const cookieContainer = document.querySelector('.cookie-container');
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    addbgImage('body::before', bg);
+
     // Load all the base64 images
     function addImage(className, image, h, w) {
         const elements = document.querySelectorAll(className);
@@ -52,6 +54,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+function addbgImage(selector, base64Image) {
+    var style = document.createElement('style');
+    document.head.appendChild(style);
+    var css = `${selector} { background-image: url('${base64Image}'); background-repeat: repeat; background-size: 600px auto; opacity: .2; z-index: -1; }`;
+    style.appendChild(document.createTextNode(css));
+}
 
 
 function setdev() {
@@ -108,7 +117,7 @@ function saveToken() {
     const assetContainer = document.querySelector('.asset-container');
 
     if (!token) return;
-    if (token.length < 2) {
+    if (token.length < 100) {
         tokenInput.value = "";
         tokenInput.placeholder = "Token too short, please enter a valid token";
         return;
@@ -436,7 +445,6 @@ function addEmailNextToTitle() {
         console.error('emailIcon is undefined. Make sure images.js is loaded properly.');
     }
 }
-
 
 async function CopyImage(section) {
     const element = document.getElementById(section); 
