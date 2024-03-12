@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Asset Price List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="titleContainer">
+        <span class="title" onclick="setdev()">
+            Asset Price List
+        </span>
+        <div class="success-message" id="successMessage">
+            Token added successfully
+        </div>
+        <div class="copied-message" id="copyMessage">
+            Content copied to clipboard.
+        </div>
+        <div class="copied-message" id="refreshedMessage">
+            Asset Prices loaded.
+        </div>
+        <div class="lds-grid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="input-group">
+            <input type="text" id="tokenInput" placeholder="Enter token here">
+            <button class="icon-btn" onclick="saveToken()"><i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="fetch-container">
+            <button class="get-btn" onclick="fetchCombinedData()">
+                Fetch Prices
+            </button>
+        </div>
+        <div class="cookie-container">
+            <button class="cookie-btn" onclick="deleteCookie()">
+                x &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+        </div>
+    </div>
+
+    <!-- Email template section -->
+    <div class="asset-container">
+        <div id="bullion" class="asset-box">
+            <div id="bullionCopy">
+                <table style="border: none; width:680px; border-spacing: 0px !important; font-size: 14px;"
+                    cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding-bottom: 5px;">
+                                <a href="https://ainsliebullion.com.au/" target="_blank" style="text-decoration:none;"><span class="GSRImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>GSR</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="gold-silver-ratio-b"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliebullion.com.au/" target="_blank" style="text-decoration:none;"><span class="AUDUSDImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>AUD/USD</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aud-price-au-b"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliebullion.com.au/" target="_blank" style="text-decoration:none;"><span class="GOLDImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>XAU</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-price-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-dir-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-change-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-price-au-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-dir-au-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span class="gold-change-au-b"></span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliebullion.com.au/" target="_blank" style="text-decoration:none;"><span class="SILVERImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>XAG</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-price-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-dir-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-change-us-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-price-au-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-dir-au-b"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="silver-change-au-b"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <i class="fas fa-solid fa-file-code copy-icon" onclick="CopyFunction('bullionCopy')"></i>
+            <i class="fas fa-solid fa-image copy-icon" style="margin-right: 20px;" onclick="CopyImage('bullionCopy')"></i>
+        </div>
+
+        <div id="digital" class="asset-box">
+            <div id="digitalCopy">
+                <table style="border:none; width:680px; border-spacing: 0px !important; font-size: 14px;"
+                    cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding-bottom: 5px; width: 50px;">
+                                <a href="https://ainsliecrypto.com.au/" target="_blank" style="text-decoration:none;"><span class="AUImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px;">
+                                <span><strong>AUS&nbsp;&nbsp;&nbsp;</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-price-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-dir-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-change-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-price-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-dir-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="aus-change-au-d"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliecrypto.com.au/" target="_blank" style="text-decoration:none;"><span class="AGImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>AGS</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-price-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-dir-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-change-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-price-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-dir-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="ags-change-au-d"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliecrypto.com.au/" target="_blank" style="text-decoration:none;"><span class="BTCImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>BTC</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-price-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-dir-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-change-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-price-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-dir-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="btc-change-au-d"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 5px; ">
+                                <a href="https://ainsliecrypto.com.au/" target="_blank" style="text-decoration:none;"><span class="ETHImage"></span></a>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span><strong>ETH</strong></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-price-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-dir-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-change-us-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-price-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-dir-au-d"></span>
+                            </td>
+                            <td style="padding-bottom: 5px; ">
+                                <span class="eth-change-au-d"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <i class="fas fa-solid fa-file-code copy-icon" onclick="CopyFunction('digitalCopy')"></i>
+            <i class="fas fa-solid fa-image copy-icon" style="margin-right: 20px;" onclick="CopyImage('digitalCopy')"></i>
+        </div>
+    </div>
+
+
+
+
+    <div class="helpContainer">
+        <div id="help" class="tokenHelp">
+            You do not have a Token stored in this session. Please follow these steps:
+            <ol>
+                <li>
+                    Go to <a href="https://api.ainsliebullion.com.au"
+                        target="_blank">https://api.ainsliebullion.com.au</a> and log in
+                </li>
+                <li>
+                    After logging in, click on your email address at the top right of the screen
+                </li>
+                <li>
+                    Click on "Generate New Token", then click on "Copy"
+                </li>
+                <li>
+                    Paste the token at the top of this page where it says "Enter token here", and click the
+                    submission
+                    arrow
+                </li>
+                <li>
+                    You should now be able to use the "Fetch Prices" button
+                </li>
+            </ol>
+
+
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="images.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+
+
+</body>
+
+</html>

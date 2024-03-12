@@ -61,7 +61,7 @@ body::before {
 
 .asset-box {
     flex-basis: auto;
-    width: 750px;
+    width: 700px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -227,15 +227,6 @@ input[type="text"]:hover {
     border-radius: 4px;
     padding: 10px;
 }
-
-.text-red {
-    color: #c86868;
-}
-
-.text-green {
-    color: #627e77;
-}
-
 
 /* loader */
 .lds-grid {
