@@ -453,6 +453,11 @@ async function CopyImage(section) {
             })
         ]);
         console.log('Image copied to clipboard!');
+        fadeIn(copyMessage, () => {
+            setTimeout(() => {
+                fadeOut(copyMessage);
+            }, 2000);
+        });
     } catch (error) {
         console.error('Failed to copy image to clipboard:', error);
     }
