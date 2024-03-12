@@ -436,3 +436,24 @@ function addEmailNextToTitle() {
         console.error('emailIcon is undefined. Make sure images.js is loaded properly.');
     }
 }
+
+
+async function CopyImage(section) {
+    const element = document.getElementById(section); 
+
+    const canvas = await html2canvas(element);
+    const imageURL = canvas.toDataURL('image/png');
+    const response = await fetch(imageURL);
+    const blob = await response.blob();
+
+    try {
+        await navigator.clipboard.write([
+            new ClipboardItem({
+                'image/png': blob
+            })
+        ]);
+        console.log('Image copied to clipboard!');
+    } catch (error) {
+        console.error('Failed to copy image to clipboard:', error);
+    }
+}
