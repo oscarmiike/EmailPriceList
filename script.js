@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setButtonBackground();
     addEmailNextToTitle();
 
-    let dev = 1;
+    let dev = 0;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
         helpContainer.style.display = 'flex';
