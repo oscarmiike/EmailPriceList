@@ -228,6 +228,15 @@ input[type="text"]:hover {
     padding: 10px;
 }
 
+.text-red {
+    color: red;
+}
+
+.text-green {
+    color: green;
+}
+
+
 /* loader */
 .lds-grid {
     display: none;

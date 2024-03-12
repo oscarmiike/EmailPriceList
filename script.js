@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addImage('.ETHImage', ETHImage, '35', '35');
     setButtonBackground();
     addEmailNextToTitle();
-    
+
     let dev = 0;
     if (dev === 1) {
         inputGroup.style.display = 'flex';
@@ -154,16 +154,16 @@ function fetchCombinedData() {
 
     if (!token) {
         token = tokenTemp;
-    } 
+    }
 
     const loader = document.querySelector('.lds-grid');
-    const refreshedMessage = document.getElementById('refreshedMessage'); 
+    const refreshedMessage = document.getElementById('refreshedMessage');
 
     let loaderTimeout = setTimeout(() => {
         loader.classList.add('fade-in');
         loader.classList.remove('fade-out');
         loader.style.display = 'inline-block';
-    }, 1000); 
+    }, 1000);
 
     return Promise.all([
         fetch('https://dev-api.ainsliebullion.com.au/assets/pricelist', {
@@ -180,31 +180,31 @@ function fetchCombinedData() {
                 'Authorization': `Bearer ${token}`,
             },
         }),
-        delay(3000) 
+        delay(3000)
     ])
-    .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
-    .then(([priceListData, historicalData]) => {
-        clearTimeout(loaderTimeout);
-        priceSheetCalcs(priceListData, historicalData);
-        console.log("priceList: ", priceListData);
-        console.log("historicalData: ", historicalData);
-        
-        loader.classList.add('fade-out');
-        loader.classList.remove('fade-in');
-        setTimeout(() => {
+        .then(responses => Promise.all(responses.slice(0, -1).map(response => response.json())))
+        .then(([priceListData, historicalData]) => {
+            clearTimeout(loaderTimeout);
+            priceSheetCalcs(priceListData, historicalData);
+            console.log("priceList: ", priceListData);
+            console.log("historicalData: ", historicalData);
+
+            loader.classList.add('fade-out');
+            loader.classList.remove('fade-in');
+            setTimeout(() => {
+                loader.style.display = 'none';
+                fadeIn(refreshedMessage, () => {
+                    setTimeout(() => {
+                        fadeOut(refreshedMessage);
+                    }, 1000);
+                });
+            }, 1500);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            clearTimeout(loaderTimeout);
             loader.style.display = 'none';
-            fadeIn(refreshedMessage, () => {
-                setTimeout(() => {
-                    fadeOut(refreshedMessage);
-                }, 1000); 
-            });
-        }, 1500); 
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        clearTimeout(loaderTimeout);
-        loader.style.display = 'none'; 
-    });
+        });
 }
 
 
@@ -352,7 +352,6 @@ function priceSheetCalcs(priceListData, historicalData) {
 
     // helper function to update correct classes based on asset type
     function updatePrices(metalType, suffix, spotPriceUS, changeUS, changeUSpc, spotPriceAU, changeAU, changeAUpc) {
-
         let currency = new Intl.NumberFormat('en-AU', {
             style: 'currency',
             currency: 'AUD',
@@ -365,13 +364,19 @@ function priceSheetCalcs(priceListData, historicalData) {
         document.querySelector(`.${metalType}-price-us-${suffix}`).textContent = `US ${currency.format(spotPriceUS.toFixed(2))}`;
         // Update US Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-us-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionUS}">`;
-        document.querySelector(`.${metalType}-change-us-${suffix}`).textContent = `US ${currency.format(changeUS.toFixed(2))} | ${(changeUSpc.toFixed(2))}%`;
+        const usChangeElement = document.querySelector(`.${metalType}-change-us-${suffix}`);
+        usChangeElement.textContent = `US ${currency.format(changeUS.toFixed(2))} | ${(changeUSpc.toFixed(2))}%`;
+        usChangeElement.classList.add(changeUS > 0 ? 'text-green' : changeUS < 0 ? 'text-red' : '');
+
         // Update AU Price
         document.querySelector(`.${metalType}-price-au-${suffix}`).textContent = `AU ${currency.format(spotPriceAU.toFixed(2))}`;
         // Update AU Change Direction and Percentage
         document.querySelector(`.${metalType}-dir-au-${suffix}`).innerHTML = `<img height="20" width="20" src="${directionAU}">`;
-        document.querySelector(`.${metalType}-change-au-${suffix}`).textContent = `AU ${currency.format(changeAU.toFixed(2))} | ${(changeAUpc.toFixed(2))}%`;
+        const auChangeElement = document.querySelector(`.${metalType}-change-au-${suffix}`);
+        auChangeElement.textContent = `AU ${currency.format(changeAU.toFixed(2))} | ${(changeAUpc.toFixed(2))}%`;
+        auChangeElement.classList.add(changeAU > 0 ? 'text-green' : changeAU < 0 ? 'text-red' : '');
     }
+
 }
 
 
@@ -412,7 +417,7 @@ function CopyFunction(sectionId) {
 function addBase64ImageNextToTitle() {
     const emailIconBase64 = emailIcon;
     const titleElement = document.querySelector('.title');
-    
+
     if (titleElement) {
         let imgElement = document.createElement('img');
         imgElement.src = emailIconBase64;
@@ -425,18 +430,18 @@ function addBase64ImageNextToTitle() {
 }
 
 function setButtonBackground() {
-    const button = document.querySelector('.cookie-btn'); 
+    const button = document.querySelector('.cookie-btn');
 
     if (button && typeof cookieImg !== 'undefined') {
         button.style.backgroundImage = `url('${cookieImg}')`;
-        button.style.backgroundSize = 'cover'; 
+        button.style.backgroundSize = 'cover';
     }
 }
 
 function addEmailNextToTitle() {
     if (typeof emailIcon !== 'undefined') {
         const titleElement = document.querySelector('.title');
-        
+
         if (titleElement) {
             let imgHTML = `<img src="${emailIcon}" alt="Email Icon" style="vertical-align: middle; margin-bottom: 2.5px; margin-left: 10px;">`;
             titleElement.innerHTML += imgHTML;
@@ -447,7 +452,7 @@ function addEmailNextToTitle() {
 }
 
 async function CopyImage(section) {
-    const element = document.getElementById(section); 
+    const element = document.getElementById(section);
 
     const canvas = await html2canvas(element);
     const imageURL = canvas.toDataURL('image/png');
